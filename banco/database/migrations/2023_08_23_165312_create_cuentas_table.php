@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cuentas', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('saldo');
-            $table->string('tipo_de_cuenta');
-            $table->string('moneda');
-            $table->timestamps();
-            $table->foreignId('id_cliente')
-                ->constrained(table: 'clientes',indexName: 'Cuentas_Clientes_id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
+        if (!Schema::hasTable("cuentas")){
+            Schema::create('cuentas', function (Blueprint $table) {
+                $table->id();
+                $table->bigInteger('saldo');
+                $table->string('tipo_de_cuenta');
+                $table->string('moneda');
+                $table->timestamps();
+                $table->foreignId('id_cliente')
+                    ->constrained(table: 'clientes',indexName: 'Cuentas_Clientes_id')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            });
+        }
 
 
     }
