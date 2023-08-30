@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Cuenta;
 use Illuminate\Http\Request;
+
 
 class ClienteController extends Controller
 {
@@ -12,7 +14,22 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes = Cliente::all();
+
+        return response()->json($clientes);
+    }
+
+    private function buscaClientes($id){
+        $clientes = Cliente::all();
+
+        return $clientes->find($id);
+    }
+
+    public function cuentas($id)
+    {
+
+
+
     }
 
     /**
@@ -34,9 +51,9 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show($id)
     {
-        //
+        $cliente = Cliente::find($id);
     }
 
     /**
@@ -62,4 +79,6 @@ class ClienteController extends Controller
     {
         //
     }
+
+
 }

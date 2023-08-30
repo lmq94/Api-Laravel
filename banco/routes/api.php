@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
@@ -25,4 +26,7 @@ Route::get('cuentas/{id}', [CuentaController::class, 'show']);
 Route::post('cuentas',[CuentaController::class, 'store']);
 Route::delete('cuentas/{id}',[CuentaController::class, 'destroy']);
 Route::put('cuentas/{id}',[CuentaController::class,'update']);
+
+Route::get('clientes', [ClienteController::class, 'index']);
+Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
 

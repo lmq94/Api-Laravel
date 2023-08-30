@@ -6,6 +6,7 @@ use App\Models\Cuenta;
 use Illuminate\Http\Request;
 
 
+
 class CuentaController extends Controller
 {
     /**
@@ -95,9 +96,7 @@ class CuentaController extends Controller
      */
     public function destroy( $id)
     {
-        $cuenta = $this->buscaCuenta($id);
-
-        $cuenta->delete();
+        Cuenta::destroy($id);
 
         return response()->json('La cuenta con ha sido eliminada');
     }

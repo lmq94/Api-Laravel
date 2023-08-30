@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations.2023_08_23_165312_create_cuentas_table.php
      */
     public function up(): void
     {
@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('tipo_de_cuenta');
             $table->string('moneda');
             $table->timestamps();
-            $table->foreignId('user_id')
-                ->constrained()
+            $table->foreignId('id_cliente')
+                ->constrained(table: 'clientes',indexName: 'Cuentas_Clientes_id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
