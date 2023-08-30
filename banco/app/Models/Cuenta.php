@@ -17,7 +17,7 @@ class Cuenta extends Model
 
     public function cliente()
     {
-        return $this->BelongsTo('id_cliente');
+        return $this->BelongsTo(Cliente::class);
 
     }
 

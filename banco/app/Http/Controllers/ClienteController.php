@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use App\Models\Cuenta;
+
+
 use Illuminate\Http\Request;
 
 
@@ -25,10 +26,18 @@ class ClienteController extends Controller
         return $clientes->find($id);
     }
 
-    public function cuentas($id)
-    {
+    public function cuentas($id){
 
+            $cliente = $this->buscaClientes($id);
 
+            if($cliente) {
+
+                $cuentas = $cliente->cuentas;
+
+                return response()->json($cuentas);
+            }
+            else
+                 return response()->json("No se encontro el cliente solicitado", 404);
 
     }
 
@@ -45,7 +54,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente($request->all());
+
+        $cliente->save();
+
+        return response()->json($cliente);
     }
 
     /**
@@ -53,7 +66,9 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $cliente = Cliente::find($id);
+        $cliente = $this->buscaClientes($id);
+
+        return response()->json($cliente);
     }
 
     /**
@@ -67,17 +82,23 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request)
     {
-        //
+        $cliente = new Cliente($request->all());
+
+        $cliente->update();
+
+        return response()->json($cliente);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        Cliente::destroy($id);
+
+        return response()->json('El cliente ha sido eliminada');
     }
 
 

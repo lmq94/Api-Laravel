@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class Cliente extends Model
@@ -13,10 +12,10 @@ class Cliente extends Model
 
     protected $fillable = ['alias', 'city', 'dni'];
 
-    protected $guarded = ['id'];
 
-    public function cuentas(): HasMany
+
+    public function cuentas()
     {
-        return $this->hasMany(Cuenta::class, 'id_cliente', 'id');
+        return $this->hasMany(Cuenta::class, 'id_cliente');
     }
 }

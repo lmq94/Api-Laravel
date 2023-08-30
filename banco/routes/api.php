@@ -25,8 +25,12 @@ Route::get('cuentas', [CuentaController::class, 'index']);
 Route::get('cuentas/{id}', [CuentaController::class, 'show']);
 Route::post('cuentas',[CuentaController::class, 'store']);
 Route::delete('cuentas/{id}',[CuentaController::class, 'destroy']);
-Route::put('cuentas/{id}',[CuentaController::class,'update']);
+Route::patch('cuentas/{id}',[CuentaController::class,'update']);
 
 Route::get('clientes', [ClienteController::class, 'index']);
+Route::get('clientes/{id}', [ClienteController::class, 'show']);
 Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
+Route::post('clientes',[ClienteController::class, 'store']);
+Route::delete('clientes/{id}',[ClienteController::class, 'destroy']);
+Route::patch('clientes/{id}',[ClienteController::class,'update']);
 
