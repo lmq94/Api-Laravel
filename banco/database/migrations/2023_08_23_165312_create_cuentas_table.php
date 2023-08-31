@@ -18,10 +18,7 @@ return new class extends Migration
                 $table->string('tipo_de_cuenta');
                 $table->string('moneda');
                 $table->timestamps();
-                $table->foreignId('id_cliente')
-                    ->constrained(table: 'clientes',indexName: 'Cuentas_Clientes_id')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+
             });
         }
 

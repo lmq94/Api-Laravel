@@ -66,9 +66,15 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
+
         $cliente = $this->buscaClientes($id);
 
+        if($cliente)
+
         return response()->json($cliente);
+
+        else
+            return response()->json("No se encuentra el cliente solicitado", 204);
     }
 
     /**
@@ -82,13 +88,19 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $cliente = new Cliente($request->all());
+        $cliente = $this->buscaClientes($id);
 
-        $cliente->update();
+        if($cliente) {
 
-        return response()->json($cliente);
+            $cliente->update($request->all());
+
+            return response()->json($cliente);
+
+        }
+        else
+            return response()->json("No se encuentra el cliente", 204);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuenta;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 
@@ -62,7 +63,7 @@ class CuentaController extends Controller
             return response()-> json($cuenta);
 
         else
-            return response()->json('No se encuentra la cuenta', 404);
+            return response()->json('No se encuentra la cuenta', 204);
 
     }
 
@@ -81,12 +82,15 @@ class CuentaController extends Controller
     {
         $cuenta = $this->buscaCuenta($id);
 
-        if($cuenta)
-
+        if($cuenta) {
 
             $cuenta->update($request->all());
+
+            return response()->json($cuenta);
+
+        }
         else
-            return response()->json('No se encuentra la cuenta', 404);
+            return response()->json('No se encuentra la cuenta', 204);
 
 
     }
