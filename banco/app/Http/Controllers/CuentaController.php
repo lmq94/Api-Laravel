@@ -18,7 +18,7 @@ class CuentaController extends Controller
     {
         $cuentas = Cuenta::all();
 
-        return response()-> json(   $cuentas, 200); //envio todos los clientes en formato json
+        return response()-> json($cuentas); //envio todos los clientes en formato json
     }
 
     private function buscaCuenta($id){
