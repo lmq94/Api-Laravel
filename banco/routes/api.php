@@ -16,27 +16,33 @@ use App\Http\Controllers\CuentaController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+    Route::group([
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+        'middleware' => 'api',
+        'namespace' => 'App\Http\Controllers',
+        'prefix' => 'auth'
+
+    ]   , function($router) {
 
 
-Route::get('cuentas', [CuentaController::class, 'index']);
-Route::get('cuentas/{id}', [CuentaController::class, 'show']);
-Route::post('cuentas',[CuentaController::class, 'store']);
-Route::delete('cuentas/{id}',[CuentaController::class, 'destroy']);
-Route::patch('cuentas/{id}',[CuentaController::class,'update']);
+            Route::get('cuentas', [CuentaController::class, 'index']);
+            Route::get('cuentas/{id}', [CuentaController::class, 'show']);
+            Route::post('cuentas', [CuentaController::class, 'store']);
+            Route::delete('cuentas/{id}', [CuentaController::class, 'destroy']);
+            Route::patch('cuentas/{id}', [CuentaController::class, 'update']);
 
-Route::get('clientes', [ClienteController::class, 'index']);
-Route::get('clientes/{id}', [ClienteController::class, 'show']);
-Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
-Route::post('clientes',[ClienteController::class, 'store']);
-Route::delete('clientes/{id}',[ClienteController::class, 'destroy']);
-Route::patch('clientes/{id}',[ClienteController::class,'update']);
+            Route::get('clientes', [ClienteController::class, 'index']);
+            Route::get('clientes/{id}', [ClienteController::class, 'show']);
+            Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
+            Route::post('clientes', [ClienteController::class, 'store']);
+            Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
+            Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 
-Route::get('users', [UserController::class, 'index']);
-Route::get('users/{id}', [UserController::class, 'show']);
-Route::post('users', [UserController::class, 'store']);
-Route::delete('users/{id}',[UserController::class, 'destroy']);
+            Route::get('users', [UserController::class, 'index']);
+            Route::get('users/{id}', [UserController::class, 'show']);
+            Route::post('users', [UserController::class, 'store']);
+            Route::delete('users/{id}', [UserController::class, 'destroy']);
+        }
+
+    );
 
