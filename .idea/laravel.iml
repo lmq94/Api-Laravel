@@ -119,6 +119,10 @@
       <excludeFolder url="file://$MODULE_DIR$/banco/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/banco/vendor/graham-campbell/result-type" />
       <excludeFolder url="file://$MODULE_DIR$/banco/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/banco/vendor/tymon/jwt-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/banco/vendor/stella-maris/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/banco/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/banco/vendor/lcobucci/jwt" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

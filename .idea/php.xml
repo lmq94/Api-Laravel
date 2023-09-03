@@ -122,6 +122,10 @@
       <path value="$PROJECT_DIR$/banco/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/banco/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/banco/vendor/composer" />
+      <path value="$PROJECT_DIR$/banco/vendor/tymon/jwt-auth" />
+      <path value="$PROJECT_DIR$/banco/vendor/stella-maris/clock" />
+      <path value="$PROJECT_DIR$/banco/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/banco/vendor/lcobucci/jwt" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
