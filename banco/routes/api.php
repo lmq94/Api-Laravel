@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\setUserFromToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
@@ -16,13 +18,7 @@ use App\Http\Controllers\CuentaController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-    Route::group([
-
-        'middleware' => 'api',
-        'namespace' => 'App\Http\Controllers',
-        'prefix' => 'auth'
-
-    ]   , function($router) {
+        Route::middleware(SetUserFromToken::class)->group(function() {
 
 
             Route::get('cuentas', [CuentaController::class, 'index']);
@@ -42,7 +38,11 @@ use App\Http\Controllers\CuentaController;
             Route::get('users/{id}', [UserController::class, 'show']);
             Route::post('users', [UserController::class, 'store']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
-        }
 
-    );
+
+        });
+
+        Route::post('login', [AuthController::class, 'login']);
+
+
 

@@ -13,7 +13,7 @@ class Cuenta extends Model
 {
     use HasFactory;
     protected $fillable = ['id_cliente','saldo', 'tipo_de_cuenta', 'moneda'];
-    protected $guarded = ['id'];
+
 
     public function cliente()
     {
