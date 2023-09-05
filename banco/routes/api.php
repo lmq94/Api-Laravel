@@ -36,7 +36,7 @@ use App\Http\Controllers\CuentaController;
 
             Route::post('users', [UserController::class, 'index']);
             Route::get('users/{id}', [UserController::class, 'show']);
-            Route::post('users', [UserController::class, 'store']);
+//            Route::post('users', [UserController::class, 'store']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
 
 
