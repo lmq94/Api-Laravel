@@ -34,13 +34,16 @@ use App\Http\Controllers\CuentaController;
             Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
             Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 
-            Route::post('users', [UserController::class, 'index']);
+            Route::get('users', [UserController::class, 'index']);
             Route::get('users/{id}', [UserController::class, 'show']);
-//            Route::post('users', [UserController::class, 'store']);
+            Route::post('users', [UserController::class, 'store']);
+            Route::post('reset-password', [UserController::class, 'resetPassword']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
+            Route::post('reset-password', [UserController::class, 'resetPassword']);
 
 
         });
+
 
         Route::post('login', [AuthController::class, 'login']);
 

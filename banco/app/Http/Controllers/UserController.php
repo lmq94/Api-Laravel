@@ -117,5 +117,16 @@ class UserController extends Controller
         return response()->json('EL usuario ha sido eliminado');
     }
 
+    public function resetPassword(Request $request){
+
+       $user = User::all()->where('email', $request->get("email"))->first();
+
+       $user->update(array("password" => $request->get("password")));
+
+       $user->save();
+
+       return  response()->json("Se actualizo con exito la contraseña");
+    }
+
 
 }
