@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Token;
 use App\Models\User;
-use http\Env\Response;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,8 +17,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->apiToken = uniqid(base64_encode(Str::random(60)));
-        $cryptToken = md5(($this->apiToken));
-        return $this->apiToken;
+        return md5(($this->apiToken));
     }
 
 
@@ -27,8 +27,17 @@ class AuthController extends Controller
 
         if($user)
 
-            if( Hash::check($request->get('password'),$user->first()->getAttribute('password') ) )
-                return  Response()->json($this->apiToken);
+            if( Hash::check($request->get('password'),$user->first()->getAttribute('password'))) {
+
+                $token = new Token();
+                $token->setAttribute('valor', md5($this->apiToken));
+                $token->setAttribute('user', $user->first()->getAttribute('id'));
+                $token->setAttribute('creation_date', DateTime::createFromFormat(DATE_ATOM,date(DATE_ATOM)));
+                $token->save();
+
+                return Response()->json($this->apiToken);
+
+            }
             else
                 return  Response()->json("Contraseña incorrecta ");
         else
