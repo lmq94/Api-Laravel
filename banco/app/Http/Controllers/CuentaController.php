@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuenta;
-use http\Env\Response;
 use Illuminate\Http\Request;
 
 
@@ -14,11 +13,16 @@ class CuentaController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index( Request $request)
     {
-        $cuentas = Cuenta::all();
+        if($this->isAdmin($request)) {
 
-        return response()-> json($cuentas); //envio todos los clientes en formato json
+            $cuentas = Cuenta::all();
+
+            return response()->json($cuentas); //envio todos los clientes en formato json
+        }
+        else
+            return response()->json("No cuentas con los permisos para esta peticion", 403);
     }
 
     private function buscaCuenta($id){
@@ -26,7 +30,6 @@ class CuentaController extends Controller
 
         return $cuentas->find($id);
     }
-
 
 
     /**
@@ -91,7 +94,6 @@ class CuentaController extends Controller
         }
         else
             return response()->json('No se encuentra la cuenta', 204);
-
 
     }
 

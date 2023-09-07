@@ -20,28 +20,46 @@ class AuthController extends Controller
         return md5(($this->apiToken));
     }
 
+    private function deleteOldToken( User $user)
+    {
+        $token = Token::all()->where("user" ,$user->getAttribute("id"))->first();
 
-    public function login(Request $request){
+        $token?->delete();
+    }
 
-        $user = User::all()->where('email', $request->get('email'));
 
-        if($user)
+    public function login(Request $request)
+    {
 
-            if( Hash::check($request->get('password'),$user->first()->getAttribute('password'))) {
+        $user = User::all()->where('email', $request->get('email'))->first();
 
+
+
+        if ($user) {
+
+            if (Hash::check($request->get('password'), $user->getAttribute('password'))) {
+
+
+                $this->deleteOldToken($user);
                 $token = new Token();
                 $token->setAttribute('valor', md5($this->apiToken));
-                $token->setAttribute('user', $user->first()->getAttribute('id'));
-                $token->setAttribute('creation_date', DateTime::createFromFormat(DATE_ATOM,date(DATE_ATOM)));
+                $token->setAttribute('user', $user->getAttribute('id'));
+                $token->setAttribute('creation_date', DateTime::createFromFormat(DATE_ATOM, date(DATE_ATOM)));
                 $token->save();
 
                 return Response()->json($this->apiToken);
 
+            } else {
+                return Response()->json("Contraseña incorrecta ");
             }
-            else
-                return  Response()->json("Contraseña incorrecta ");
+        }
         else
-            return  Response()->json("Usuario invalido");
+            return Response()->json("Usuario invalido");
+
+    }
+
+    public function logout(Request $request){
+        $this->logout($request);
     }
 
 

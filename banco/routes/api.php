@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\setUserFromToken;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
 
@@ -30,21 +29,20 @@ use App\Http\Controllers\CuentaController;
             Route::get('clientes', [ClienteController::class, 'index']);
             Route::get('clientes/{id}', [ClienteController::class, 'show']);
             Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
-            Route::post('clientes', [ClienteController::class, 'store']);
             Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
             Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 
             Route::get('users', [UserController::class, 'index']);
             Route::get('users/{id}', [UserController::class, 'show']);
-            Route::post('users', [UserController::class, 'store']);
             Route::post('reset-password', [UserController::class, 'resetPassword']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
-            Route::post('reset-password', [UserController::class, 'resetPassword']);
+            Route::post('logout', [AuthController::class, 'logout']);
 
 
         });
 
-
+        Route::post('clientes', [ClienteController::class, 'store']);
+        Route::post('users', [UserController::class, 'store']);
         Route::post('login', [AuthController::class, 'login']);
 
 

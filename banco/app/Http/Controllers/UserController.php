@@ -39,17 +39,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        $user = new User($request->all());
+        $user = new User([  "name" => $request->get("name"),
+                            "email" => $request->get("email"),
+                            "password" => $request->get("password"),
+                            "id_cliente" => $request->get("id_cliente")]);
 
-        if($user->getAttribute('rol') == "admin"){
+        if($request->get('rol') == "admin"){
 
-            $mockCliente = new Cliente();
-
-
-
-            $mockCliente->setAttribute("alias", "Test");
-            $mockCliente->setAttribute("city", "Tandil");
-            $mockCliente->setAttribute("dni", "123456");
+            $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456"]) ;
 
             $mockCliente->save();
 
@@ -121,9 +118,10 @@ class UserController extends Controller
 
        $user = User::all()->where('email', $request->get("email"))->first();
 
-       $user->update(array("password" => $request->get("password")));
+       $user->update(["password" => $request->get("password")]);
 
-       $user->save();
+
+       dump($request->get("password"));
 
        return  response()->json("Se actualizo con exito la contraseña");
     }
