@@ -28,7 +28,7 @@ use App\Http\Controllers\CuentaController;
 
             Route::get('clientes', [ClienteController::class, 'index']);
             Route::get('clientes/{id}', [ClienteController::class, 'show']);
-            Route::get('clientes-cuentas/{id}', [ClienteController::class, 'cuentas']);
+            Route::get('clientes-cuentas', [ClienteController::class, 'cuentas']);
             Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
             Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 

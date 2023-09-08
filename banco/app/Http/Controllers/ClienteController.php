@@ -13,11 +13,16 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clientes = Cliente::all();
+        if($this->isAdmin($request)) {
 
-        return response()->json($clientes);
+            $clientes = Cliente::all();
+
+            return response()->json($clientes);
+        }
+        else
+            return response()->json("No cuentas con los permitos para esta peticion", 403);
     }
 
     private function buscaClientes($id){
@@ -26,9 +31,11 @@ class ClienteController extends Controller
         return $clientes->find($id);
     }
 
-    public function cuentas($id){
+    public function cuentas( Request $request){
 
-            $cliente = $this->buscaClientes($id);
+            $user = $request->get("user");
+
+            $cliente = $this->buscaClientes($user->getAttribute("id_cliente"));
 
             if($cliente) {
 
