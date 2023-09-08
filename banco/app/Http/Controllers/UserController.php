@@ -16,6 +16,7 @@ class UserController extends Controller
 
         return response()-> json($users);
         }
+
         return response()->json("No cuentas con los permisos para esta peticion");
     }
 
@@ -122,7 +123,6 @@ class UserController extends Controller
 
        $user->update(["password" => $request->get("password")]);
 
-       dump($request->get("password"));
 
        return  response()->json("Se actualizo con exito la contraseña");
     }

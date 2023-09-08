@@ -18,10 +18,10 @@ class Controller extends BaseController
     {
          $user = $request->get("user");
 
-
          return $user->getAttribute("rol") == "admin";
 
     }
+
 
 }
 

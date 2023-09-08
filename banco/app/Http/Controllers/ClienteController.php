@@ -61,7 +61,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Cliente($request->all());
+        $cliente = new Cliente([$request->get()
+
+                                                ]);
 
         $cliente->save();
 

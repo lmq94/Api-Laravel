@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tokens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user')
-                ->constrained(table: 'users',indexName: 'tokens_users_id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->string('valor');
-            $table->dateTime('creation_date');
-            $table->timestamps();
-        });
+            Schema::create('tokens', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user')
+                    ->constrained(table: 'users', indexName: 'tokens_users_id')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+                $table->string('valor');
+                $table->dateTime('creation_date');
+                $table->timestamps();
+            });
+
     }
 
     /**

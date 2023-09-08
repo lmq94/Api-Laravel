@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('id_cliente')->nullable()
-                ->constrained(table: 'clientes',indexName: 'Usuarios_Clientes_id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
+        if (!Schema::hasTable("clientes")) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->foreign('id_cliente')->nullable()
+                    ->constrained(table: 'clientes', indexName: 'Usuarios_Clientes_id')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            });
+        }
     }
 
     /**
