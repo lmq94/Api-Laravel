@@ -30,7 +30,7 @@ class setUserFromToken
 
         if (!$userId) return  new Response("Forbidden",403);
 
-        $user = User::all()->find($userId)->first();
+        $user = User::all()->find($userId);
 
         if(!$user) return new Response("Forbidden",403);
 

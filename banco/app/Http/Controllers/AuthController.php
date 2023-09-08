@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->apiToken = uniqid(base64_encode(Str::random(60)));
-        return md5(($this->apiToken));
+
     }
 
     private function deleteOldToken( User $user)
@@ -59,7 +59,10 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        $this->logout($request);
+
+        $this->deleteOldToken($request->get("user"));
+
+        return response()->json("Usted se ha deslogeado");
     }
 
 

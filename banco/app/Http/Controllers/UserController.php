@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if($this->isAdmin($request)) {
         $users = User::all();
 
         return response()-> json($users);
+        }
+        return response()->json("No cuentas con los permisos para esta peticion");
     }
 
 
@@ -101,7 +104,6 @@ class UserController extends Controller
         else
             return response()->json('No se encuentra el usuario solicitado', 204);
 
-
     }
 
     /**
@@ -119,7 +121,6 @@ class UserController extends Controller
        $user = User::all()->where('email', $request->get("email"))->first();
 
        $user->update(["password" => $request->get("password")]);
-
 
        dump($request->get("password"));
 
