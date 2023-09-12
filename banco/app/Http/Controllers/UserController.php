@@ -46,6 +46,7 @@ class UserController extends Controller
         $user = new User([  "name" => $request->get("name"),
                             "email" => $request->get("email"),
                             "password" => $request->get("password"),
+                            "rol" => $request->get("rol"),
                             "id_cliente" => $request->get("id_cliente")]);
 
         if($request->get('rol') == "admin"){
