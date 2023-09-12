@@ -18,7 +18,7 @@ function LoginForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/users/login, formData');
+            const response = await axios.post('http://localhost:8000/api/login', formData);
             console.log('Respuesta del servidor:', response.data);
         } catch (error) {
             console.error('Error:', error);
