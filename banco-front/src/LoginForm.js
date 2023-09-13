@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function LoginForm() {
     const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ function LoginForm() {
         try {
             const response = await axios.post('http://localhost:8000/api/login', formData);
             console.log('Respuesta del servidor:', response.data);
+            Cookies.set('token', response.data);
         } catch (error) {
             console.error('Error:', error);
 
