@@ -11,7 +11,7 @@ function App() {
     let userRole = "admin";
     return (
           <div className="App">
-              <main>
+              <main className="container">
                   <div>
                       {isLoggedIn ? (
                           <div>

@@ -5,11 +5,15 @@ import Cookies from "js-cookie";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
+    let noMostrar = ["id", "email_verified_at", 'created_at',"updated_at","id_cliente",]
+
     useEffect(() => {
-        let token = Cookies.get('api-key');
+        let token = Cookies.get('token');
         setAuthToken(token);
+        console.log(ruta);
         axiosInstance.get(ruta)
             .then((response) => {
+                console.log(response.data);
                 setData(response.data);
             })
             .catch((error) => {
@@ -17,17 +21,22 @@ function TableItems({ ruta }) {
             });
     }, [ruta]);
 
+    console.log(data);
     return (
         <div>
             <h2>Datos de la tabla</h2>
-            <table className = "table table-bordered table-striped">
-                <thead className = "thead-dark">
+            <table className="table table-bordered table-striped">
+                <thead className="thead-dark">
                 {/* Agrega encabezados de tabla aquí */}
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
                     <tr key={index}>
-                        {/* Muestra los datos de cada fila de la tabla aquí */}
+                        {Object.keys(item).map((key) => (
+                            <td key={key}>
+                                {key}: {item[key]}
+                            </td>
+                        ))}
                     </tr>
                 ))}
                 </tbody>
