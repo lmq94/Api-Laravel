@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import axios from './axiosConfig';
+import axios from './AxiosConfig';
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
