@@ -1,11 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
-import axios from './AxiosConfig';
+import {axiosInstance, setAuthToken} from './AxiosConfig';
+import Cookies from "js-cookie";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get(ruta)
+        let token = Cookies.get('api-key');
+        setAuthToken(token);
+        axiosInstance.get(ruta)
             .then((response) => {
                 setData(response.data);
             })

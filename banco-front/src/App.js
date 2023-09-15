@@ -2,11 +2,14 @@
 import './App.css';
 import React, {useState} from "react";
 import LoginForm from "./LoginForm";
+import { AdminPanel, UserPanel } from "./Panel.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-      return (
+
+    let userRole = "admin";
+    return (
           <div className="App">
               <main>
                   <div>
@@ -22,6 +25,7 @@ function App() {
                       ) : (
                           // Mostrar el formulario de inicio de sesión si el usuario no está autenticado
                           <LoginForm setIsLoggedInCallback={setIsLoggedIn} />
+
                       )}
                   </div>
               </main>

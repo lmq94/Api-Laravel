@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-function LoginForm() {
+function LoginForm({ setIsLoggedInCallback }) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -22,6 +22,7 @@ function LoginForm() {
             const response = await axios.post('http://localhost:8000/api/login', formData);
             console.log('Respuesta del servidor:', response.data);
             Cookies.set('token', response.data);
+            setIsLoggedInCallback(true);
         } catch (error) {
             console.error('Error:', error);
 

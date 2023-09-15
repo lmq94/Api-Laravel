@@ -1,14 +1,20 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
-axios.defaults.baseURL = 'http://localhost:8000/api';
 
-    axios.interceptors.request.use((config) => {
-        const token = Cookies.get('token');
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
-        }
-        return config;
+const apiBaseUrl =  'http://localhost:8000/api';
+
+
+
+
+
+    const axiosInstance = axios.create({
+        baseURL: apiBaseUrl,
     });
 
-    export default axios;
+
+    const setAuthToken = (token) => {
+        axiosInstance.defaults.headers.common['api-key'] = token;
+    };
+
+    export { axiosInstance, setAuthToken };
+
