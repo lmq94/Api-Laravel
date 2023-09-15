@@ -12,6 +12,11 @@ class Cliente extends Model
 
     protected $fillable = ['alias', 'city', 'dni'];
 
+    protected $hidden = [
+        "id"
+
+    ];
+
 
 
     public function cuentas()

@@ -14,6 +14,12 @@ class Cuenta extends Model
     use HasFactory;
     protected $fillable = ['id_cliente','saldo', 'tipo_de_cuenta', 'moneda'];
 
+    protected $hidden = [
+        "id",
+        'id_cliente',
+
+    ];
+
 
     public function cliente()
     {
