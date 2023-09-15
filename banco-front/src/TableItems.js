@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
-    let noMostrar = ["id", "email_verified_at", 'created_at',"updated_at","id_cliente",]
+    let noMostrar = ["email_verified_at", 'created_at',"updated_at","id_cliente"];
 
     useEffect(() => {
         let token = Cookies.get('token');
@@ -24,17 +24,22 @@ function TableItems({ ruta }) {
     console.log(data);
     return (
         <div>
-            <h2>Datos de la tabla</h2>
+            <h2>Datos de {ruta.split('/')}</h2>
             <table className="table table-bordered table-striped">
-                <thead className="thead-dark">
-                {/* Agrega encabezados de tabla aquí */}
+                <thead  className="thead-dark">
+                <tr>
+                    {data.length > 0 && Object.keys(data[0]).map((key) => (
+                        !noMostrar.includes(key) &&
+                        <th key={key}>{key}</th>
+                    ))}
+                </tr>
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
                     <tr key={index}>
-                        {Object.keys(item).map((key) => (
+                        {Object.keys(item).map((key) => (!noMostrar.includes(key) &&
                             <td key={key}>
-                                {key}: {item[key]}
+                                 {item[key]}
                             </td>
                         ))}
                     </tr>
