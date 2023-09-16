@@ -2,7 +2,7 @@
 import './App.css';
 import React, {useState} from "react";
 import LoginForm from "./LoginForm";
-import { AdminPanel, UserPanel } from "./Panel.js"
+import { AdminPanel, UserPanel } from "./crud/Panel.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

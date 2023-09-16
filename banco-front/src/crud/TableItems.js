@@ -1,14 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
-import {axiosInstance, setAuthToken} from './AxiosConfig';
+import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
+import {DeleteFila, UpdateFila} from "./Functions";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
     let noMostrar = ["email_verified_at", 'created_at',"updated_at","id_cliente"];
 
     useEffect(() => {
-        let token = Cookies.get('token');
+        let token = Cookies.get('api-key');
         setAuthToken(token);
         console.log(ruta);
         axiosInstance.get(ruta)
@@ -42,7 +43,10 @@ function TableItems({ ruta }) {
                                  {item[key]}
                             </td>
                         ))}
+                        <td> <button onClick={() => UpdateFila(item)}>Editar</button> </td>
+                        <td><button onClick={() => DeleteFila(item)}>Borrar</button> </td>
                     </tr>
+
                 ))}
                 </tbody>
             </table>
