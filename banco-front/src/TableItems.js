@@ -8,7 +8,7 @@ function TableItems({ ruta }) {
     let noMostrar = ["email_verified_at", 'created_at',"updated_at","id_cliente"];
 
     useEffect(() => {
-        let token = Cookies.get('token');
+        let token = Cookies.get('api-key');
         setAuthToken(token);
         console.log(ruta);
         axiosInstance.get(ruta)

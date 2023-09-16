@@ -21,7 +21,7 @@ function LoginForm({ setIsLoggedInCallback }) {
         try {
             const response = await axios.post('http://localhost:8000/api/login', formData);
             console.log('Respuesta del servidor:', response.data);
-            Cookies.set('token', response.data);
+            Cookies.set('api-key', response.data);
             setIsLoggedInCallback(true);
         } catch (error) {
             console.error('Error:', error);
