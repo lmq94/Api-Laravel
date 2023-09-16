@@ -10,12 +10,7 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['alias', 'city', 'dni'];
-
-    protected $hidden = [
-        "id"
-
-    ];
+    protected $fillable = ['id','alias', 'city', 'dni'];
 
 
 
