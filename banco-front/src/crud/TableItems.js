@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
-import {axiosInstance, setAuthToken} from './AxiosConfig';
+import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
+import {DeleteFila, UpdateFila} from "./Functions";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
@@ -42,7 +43,10 @@ function TableItems({ ruta }) {
                                  {item[key]}
                             </td>
                         ))}
+                        <td> <button onClick={() => UpdateFila(item)}>Editar</button> </td>
+                        <td><button onClick={() => DeleteFila(item)}>Borrar</button> </td>
                     </tr>
+
                 ))}
                 </tbody>
             </table>
