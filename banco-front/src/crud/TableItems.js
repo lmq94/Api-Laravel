@@ -6,7 +6,8 @@ import {DeleteFila, UpdateFila} from "./Functions";
 function TableItems({ ruta }) {
     const [data, setData] = useState([]);
 
-    let noMostrar = ["email_verified_at", 'created_at',"updated_at","id_cliente"];
+    let mostrar = ['alias', 'city', 'dni','saldo', 'tipo_de_cuenta', 'moneda', 'name',
+        'email','rol'];
 
     useEffect(() => {
         let token = Cookies.get('api-key');
@@ -30,7 +31,7 @@ function TableItems({ ruta }) {
                 <thead  className="thead-dark">
                 <tr>
                     {data.length > 0 && Object.keys(data[0]).map((key) => (
-                        !noMostrar.includes(key) &&
+                        mostrar.includes(key) &&
                         <th key={key}>{key}</th>
                     ))}
                 </tr>
@@ -38,13 +39,13 @@ function TableItems({ ruta }) {
                 <tbody>
                 {data.map((item, index) => (
                     <tr key={index}>
-                        {Object.keys(item).map((key) => (!noMostrar.includes(key) &&
+                        {Object.keys(item).map((key) => (mostrar.includes(key) &&
                             <td key={key}>
                                  {item[key]}
                             </td>
                         ))}
-                        <td> <button onClick={() => UpdateFila(item)}>Editar</button> </td>
-                        <td><button onClick={() => DeleteFila(item)}>Borrar</button> </td>
+                        <td> <button onClick={() => UpdateFila(item["id"])}>Editar</button> </td>
+                        <td><button onClick={() => DeleteFila(item["id"])}>Borrar</button> </td>
                     </tr>
 
                 ))}
