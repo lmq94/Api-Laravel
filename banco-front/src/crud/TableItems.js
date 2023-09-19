@@ -25,8 +25,8 @@ function TableItems({ ruta }) {
 
 
     const handleUpdate = (updatedData) => {
-
-        UpdateFila(ruta, updatedData.id, updatedData);
+        console.log(updatedData);
+        UpdateFila(ruta, updatedData);
 
         // Cierra el formulario de edición
         closeEditForm();
