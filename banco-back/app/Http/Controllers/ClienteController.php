@@ -15,14 +15,10 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->isAdmin($request)) {
-
             $clientes = Cliente::all();
 
             return response()->json($clientes);
-        }
-        else
-            return response()->json("No cuentas con los permitos para esta peticion", 403);
+
     }
 
     private function buscaClientes($id){

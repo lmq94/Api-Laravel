@@ -26,7 +26,7 @@ use App\Http\Controllers\CuentaController;
             Route::delete('cuentas/{id}', [CuentaController::class, 'destroy']);
             Route::patch('cuentas/{id}', [CuentaController::class, 'update']);
 
-            Route::get('clientes', [ClienteController::class, 'index']);
+
             Route::get('clientes/{id}', [ClienteController::class, 'show']);
             Route::get('clientes-cuentas', [ClienteController::class, 'cuentas']);
             Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
@@ -40,7 +40,7 @@ use App\Http\Controllers\CuentaController;
 
 
         });
-
+        Route::get('clientes', [ClienteController::class, 'index']);
         Route::post('clientes', [ClienteController::class, 'store']);
         Route::post('users', [UserController::class, 'store']);
         Route::post('login', [AuthController::class, 'login']);
