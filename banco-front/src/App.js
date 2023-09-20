@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import LoginForm from "./LoginForm";
 import { AdminPanel, UserPanel } from "./crud/Panel.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Header} from "./templates/Header";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,6 +12,7 @@ function App() {
     let userRole = "admin";
     return (
           <div className="App">
+              <Header></Header>
               <main className="container">
                   <div>
                       {isLoggedIn ? (
