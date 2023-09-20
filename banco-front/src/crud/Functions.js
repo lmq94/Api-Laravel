@@ -22,4 +22,15 @@ import {axiosInstance} from "../AxiosConfig";
         }
     }
 
-    export {UpdateFila, DeleteFila}
+    function UpdateComponent(setData, ruta){
+        axiosInstance.get(ruta)
+            .then((response) => {
+                console.log(response.data);
+                setData(response.data);
+            })
+            .catch((error) => {
+                console.error('Error al obtener datos:', error);
+            });
+    }
+
+    export {UpdateFila,UpdateComponent, DeleteFila}

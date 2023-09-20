@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
-import {DeleteFila, UpdateFila} from "./Functions";
+import {DeleteFila, UpdateComponent, UpdateFila} from "./Functions";
 
 
 function TableItems({ ruta }) {
@@ -28,8 +28,10 @@ function TableItems({ ruta }) {
         console.log(updatedData);
         UpdateFila(ruta, updatedData);
 
+
         // Cierra el formulario de edición
         closeEditForm();
+        UpdateComponent(setData, ruta);
     };
 
 
@@ -69,7 +71,7 @@ function TableItems({ ruta }) {
                             </td>
                         ))}
                         <td> <button onClick={() => openEditForm(item)}>Editar</button> </td>
-                        <td><button onClick={() => DeleteFila(ruta,item['id'])}>Borrar</button> </td>
+                        <td><button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)}>Borrar</button> </td>
                     </tr>
 
                 ))}
