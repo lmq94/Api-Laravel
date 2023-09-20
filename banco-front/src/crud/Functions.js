@@ -33,4 +33,17 @@ import {axiosInstance} from "../AxiosConfig";
             });
     }
 
-    export {UpdateFila,UpdateComponent, DeleteFila}
+    function AddUser(item){
+        axiosInstance.post("users", item)
+            .then((response) => {
+                console.log('Datos actualizados:', response.data);
+                // Realizar cualquier acción adicional después de la actualización
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos:', error);
+            });
+
+
+    }
+
+    export {UpdateFila,UpdateComponent, DeleteFila, AddUser}
