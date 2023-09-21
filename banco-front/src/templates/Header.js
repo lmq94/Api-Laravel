@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
+import {Logout} from "../crud/Functions";
 
-function Header(){
+function Header({ isLoggedIn, setIsLoggedInCallback } ){
     return(<nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
             <a className="navbar-brand" href="#">Bienvenidos </a>
@@ -15,9 +16,15 @@ function Header(){
                     <li className="nav-item">
                         <Link className="nav-link" to="/about">About</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register">Registrarse</Link>
-                    </li>
+                    {isLoggedIn ?(
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/deslogearse"  onClick={() => Logout({setIsLoggedInCallback})}>Deslogearse</Link>
+                        </li>
+                    ) : (
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/register">Registrarse</Link>
+                        </li>
+                    )}
                 </ul>
             </div>
         </div>

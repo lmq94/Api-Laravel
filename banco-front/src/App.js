@@ -15,7 +15,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Header />
+                <Header isLoggedIn={isLoggedIn} setIsLoggedInCallback={setIsLoggedIn} />
                 <main className="container">
                         <Routes>
                             <Route path="/" element={isLoggedIn ? <AdminPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />

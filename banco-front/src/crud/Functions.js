@@ -1,10 +1,11 @@
 import {axiosInstance} from "../AxiosConfig";
+import Cookies from "js-cookie";
 
      function UpdateFila(ruta,  item) {
         axiosInstance.patch(`${ruta}/${item.id}`, item)
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
-                // Realizar cualquier acción adicional después de la actualización
+
             })
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
@@ -46,4 +47,17 @@ import {axiosInstance} from "../AxiosConfig";
 
     }
 
-    export {UpdateFila,UpdateComponent, DeleteFila, AddUser}
+    function Logout ({ setIsLoggedInCallback}) {
+        Cookies.remove("api-key");
+        axiosInstance.post("/logout")
+            .then((response) => {
+                console.log('Datos actualizados:', response.data);
+                Cookies.remove("api-key");
+                setIsLoggedInCallback(false);
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos:', error);
+            });
+    }
+
+    export {UpdateFila,UpdateComponent, DeleteFila, AddUser, Logout}
