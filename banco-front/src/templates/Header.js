@@ -1,7 +1,17 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Logout} from "../crud/Functions";
 
 function Header({ isLoggedIn, setIsLoggedInCallback } ){
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+
+        Logout ({ setIsLoggedInCallback})
+
+        navigate("/");
+    };
+
     return(<nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
             <a className="navbar-brand" href="#">Bienvenidos </a>
@@ -14,11 +24,11 @@ function Header({ isLoggedIn, setIsLoggedInCallback } ){
                         <Link className="nav-link" to="/">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/about">About</Link>
+                        <Link className="nav-link" to="/">About</Link>
                     </li>
                     {isLoggedIn ?(
                         <li className="nav-item">
-                            <Link className="nav-link" to="/deslogearse"  onClick={() => Logout({setIsLoggedInCallback})}>Deslogearse</Link>
+                            <Link className="nav-link" to="/"  onClick={() => Logout({setIsLoggedInCallback})}>Deslogearse</Link>
                         </li>
                     ) : (
                         <li className="nav-item">

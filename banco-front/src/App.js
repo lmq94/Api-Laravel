@@ -20,8 +20,8 @@ function App() {
                 <main className="container">
                         <Routes>
                             <Route path="/" element={isLoggedIn ? <AdminPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />
-                            <Route path="/admin" element={isLoggedIn && userRole === 'admin' ? <AdminPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />
-                            <Route path="/user" element={isLoggedIn ? <UserPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />
+                            <Route path="/admin/*" element={isLoggedIn && userRole === 'admin' ? <AdminPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />
+                            <Route path="/user/*" element={isLoggedIn ? <UserPanel /> : <LoginForm setIsLoggedInCallback={setIsLoggedIn} />} />
                             <Route path="/register" element={<UserRegister />} />
                         </Routes>
                 </main>
