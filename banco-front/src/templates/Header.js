@@ -12,7 +12,8 @@ function Header({ isLoggedIn, setIsLoggedInCallback } ){
         navigate("/");
     };
 
-    return(<nav className="navbar navbar-expand-lg bg-body-tertiary">
+    return(
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
             <a className="navbar-brand" href="#">Bienvenidos </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
