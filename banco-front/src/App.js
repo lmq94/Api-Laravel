@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginForm from "./LoginForm";
 import { AdminPanel, UserPanel } from "./crud/Panel.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Header} from "./templates/Header";
 import UserRegister from "./crud/UserRegister";
 
