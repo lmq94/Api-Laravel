@@ -47,10 +47,13 @@ class AuthController extends Controller
                 $token->setAttribute('creation_date', DateTime::createFromFormat(DATE_ATOM, date(DATE_ATOM)));
                 $token->save();
 
-                return Response()->json($this->apiToken);
+                return Response()->json([
+                    "token" => $this->apiToken,
+                    "rol" => $user->getAttribute("rol"),
+                    ]);
 
             } else {
-                return Response()->json("Contraseña incorrecta ");
+                return Response()->json("Contraseña incorrecta");
             }
         }
         else
