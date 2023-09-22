@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-function LoginForm({ setIsLoggedInCallback }) {
+function LoginForm({ setIsLoggedInCallback, setUserRoleCallback}) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+
+    const [error, setError] = useState("");
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -21,12 +23,20 @@ function LoginForm({ setIsLoggedInCallback }) {
         try {
             const response = await axios.post('http://localhost:8000/api/login', formData);
             console.log('Respuesta del servidor:', response.data);
-            Cookies.set('api-key', response.data);
-            setIsLoggedInCallback(true);
+
+
+            if (response.status === 200) {
+
+                Cookies.set('api-key', response.data.token);
+
+                setIsLoggedInCallback(true);
+                setUserRoleCallback(response.data.rol);
+            }
+
         } catch (error) {
             console.error('Error:', error);
-
             console.log('Datos de inicio de sesión:', formData);
+            setError("Usuario o contraseña incorrectos");
         }
     };
 
@@ -63,6 +73,9 @@ function LoginForm({ setIsLoggedInCallback }) {
                                             placeholder="Ingresa tu contraseña"
                                             required
                                         />
+                                    </div>
+                                    <div className="mb-3">
+                                        {error && <div className="alert alert-danger">{error}</div>}
                                     </div>
                                     <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
                                 </form>

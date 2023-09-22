@@ -15,8 +15,7 @@ function UserPanel() {
     return (
         <div>
             <h2>Panel de Usuario Normal</h2>
-            <TableItems ruta="/api/cuentas-usuario" /> {/* Ruta personalizada para cuentas de usuario */}
-            {/* Mostrar datos de usuario y cliente */}
+
         </div>
     );
 }

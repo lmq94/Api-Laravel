@@ -29,7 +29,9 @@ function Header({ isLoggedIn, setIsLoggedInCallback } ){
                     </li>
                     {isLoggedIn ?(
                         <li className="nav-item">
-                            <Link className="nav-link" to="/"  onClick={() => Logout({setIsLoggedInCallback})}>Deslogearse</Link>
+                            <Link className="nav-link" to="/" onClick={() => Logout({ setIsLoggedInCallback })}>
+                                Deslogearse
+                            </Link>
                         </li>
                     ) : (
                         <li className="nav-item">

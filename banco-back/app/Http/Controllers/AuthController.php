@@ -50,14 +50,14 @@ class AuthController extends Controller
                 return Response()->json([
                     "token" => $this->apiToken,
                     "rol" => $user->getAttribute("rol"),
-                    ]);
+                    ] );
 
             } else {
-                return Response()->json("Contraseña incorrecta");
+                return Response()->json("Contraseña incorrecta",401);
             }
         }
         else
-            return Response()->json("Usuario invalido");
+            return Response()->json("Usuario invalido", 401);
 
     }
 

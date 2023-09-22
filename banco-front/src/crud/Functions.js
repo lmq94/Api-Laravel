@@ -48,7 +48,6 @@ import Cookies from "js-cookie";
     }
 
     function Logout ({ setIsLoggedInCallback}) {
-        Cookies.remove("api-key");
         axiosInstance.post("/logout")
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
