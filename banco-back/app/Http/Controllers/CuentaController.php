@@ -46,8 +46,11 @@ class CuentaController extends Controller
     public function store(Request $request)
     {
 
-        $cuenta = new Cuenta($request->all());
-
+        $cuenta = new Cuenta([  "saldo" => $request->get("saldo"),
+                                "tipo_de_cuenta" => $request->get("tipo_de_cuenta"),
+                                "moneda" => $request->get("moneda"),
+                                "id_cliente" => $request->get("user")->getAttribute("id_cliente"),
+                                ]);
         $cuenta->save();
 
         return response()->json($cuenta, 200);
