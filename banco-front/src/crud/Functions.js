@@ -35,7 +35,7 @@ import Cookies from "js-cookie";
     }
 
     function AddUser(item){
-        axiosInstance.post("users", item)
+        axiosInstance.post("/users", item)
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
                 // Realizar cualquier acción adicional después de la actualización
@@ -51,8 +51,9 @@ import Cookies from "js-cookie";
         axiosInstance.post("/logout")
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
-                Cookies.remove("api-key");
                 setIsLoggedInCallback(false);
+                Cookies.remove("api-key");
+
             })
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
