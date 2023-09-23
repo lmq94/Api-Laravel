@@ -47,6 +47,18 @@ import Cookies from "js-cookie";
 
     }
 
+    function AddCuenta(item){
+        axiosInstance.post("/cuentas", item)
+            .then((response) => {
+                console.log('Datos actualizados:', response.data);
+
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos:', error);
+            });
+
+    }
+
     function Logout ({ setIsLoggedInCallback}) {
         axiosInstance.post("/logout")
             .then((response) => {
@@ -60,4 +72,4 @@ import Cookies from "js-cookie";
             });
     }
 
-    export {UpdateFila,UpdateComponent, DeleteFila, AddUser, Logout}
+    export {UpdateFila,UpdateComponent, DeleteFila, AddUser, AddCuenta, Logout}

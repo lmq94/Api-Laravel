@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import {DeleteFila, UpdateComponent, UpdateFila} from "./Functions";
 
 
-function TableItems({ ruta }) {
+function TableItems({ ruta, edicion }) {
     const [data, setData] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [editingData, setEditingData] = useState({});
@@ -52,7 +52,6 @@ function TableItems({ ruta }) {
     console.log(data);
     return (
         <div>
-            <h2>Datos de {ruta.split('/')}</h2>
             <table className="table table-bordered table-striped">
                 <thead  className="thead-dark">
                 <tr>
@@ -70,8 +69,9 @@ function TableItems({ ruta }) {
                                  {item[key]}
                             </td>
                         ))}
-                        <td> <button onClick={() => openEditForm(item)}>Editar</button> </td>
-                        <td><button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)}>Borrar</button> </td>
+
+                        {edicion && <td>  <button onClick={() => openEditForm(item)}>Editar</button> </td>}
+                        {edicion && <td><button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)}>Borrar</button> </td>}
                     </tr>
 
                 ))}

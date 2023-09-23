@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Header} from "./templates/Header";
 import UserRegister from "./crud/UserRegister";
+import CreateCuenta from "./crud/CreateCuenta";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +27,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Header isLoggedIn={isLoggedIn} setIsLoggedInCallback={setIsLoggedIn} />
+                <Header isLoggedIn={isLoggedIn} setIsLoggedInCallback={setIsLoggedIn} userRole={userRole} />
                 <main className="container">
                     <Routes>
                         {/* Ruta por defecto */}
@@ -35,7 +36,7 @@ function App() {
                             element={
                                 isLoggedIn ? (
                                     userRole === 'admin' ? (
-                                        <AdminPanel />
+                                        <AdminPanel  />
                                     ) : (
                                         <UserPanel />
                                     )
@@ -47,7 +48,8 @@ function App() {
                         />
 
                         {/* Ruta para el registro */}
-                        <Route path="/register" element={<UserRegister />} />
+                        <Route path = "/register" element={<UserRegister />} />
+                        <Route path = "/create-account" element ={<CreateCuenta/>}/>
                     </Routes>
                 </main>
             </div>

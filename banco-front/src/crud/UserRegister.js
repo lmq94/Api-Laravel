@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {AddUser} from "./Functions";
 import {axiosInstance} from "../AxiosConfig";
 
-function UserRegister({ addUser }) {
+function UserRegister() {
     const [userData, setUserData] = useState({
         name: "",
         email: "",

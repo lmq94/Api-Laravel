@@ -1,7 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
 import {Logout} from "../crud/Functions";
 
-function Header({ isLoggedIn, setIsLoggedInCallback } ){
+function Header({ isLoggedIn, setIsLoggedInCallback, userRole } ){
 
     const navigate = useNavigate();
 
@@ -27,8 +27,15 @@ function Header({ isLoggedIn, setIsLoggedInCallback } ){
                     <li className="nav-item">
                         <Link className="nav-link" to="/">About</Link>
                     </li>
-                    {isLoggedIn ?(
+                    {userRole === "normal" ? (
                         <li className="nav-item">
+                            <Link className="nav-link" to="/create-account">
+                                Abrir una cuenta
+                            </Link>
+                        </li>
+                    ) : null}
+                    {isLoggedIn ?(
+                        <li className = "nav-item">
                             <Link className="nav-link" to="/" onClick={() => Logout({ setIsLoggedInCallback })}>
                                 Deslogearse
                             </Link>
