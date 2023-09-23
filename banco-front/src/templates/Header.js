@@ -27,7 +27,7 @@ function Header({ isLoggedIn, setIsLoggedInCallback, userRole } ){
                     <li className="nav-item">
                         <Link className="nav-link" to="/">About</Link>
                     </li>
-                    {userRole === "normal" ? (
+                    {userRole === "normal"&& isLoggedIn ? (
                         <li className="nav-item">
                             <Link className="nav-link" to="/create-account">
                                 Abrir una cuenta
