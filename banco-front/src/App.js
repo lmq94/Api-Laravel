@@ -1,6 +1,6 @@
 
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import LoginForm from "./LoginForm";
 import { AdminPanel, UserPanel } from "./crud/Panel.js"
@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Header} from "./templates/Header";
 import UserRegister from "./crud/UserRegister";
 import CreateCuenta from "./crud/CreateCuenta";
+import UserData from "./crud/UserData";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +18,9 @@ function App() {
         setIsLoggedIn(true);
         setUserRole(role);
     };
+
+
+
 
 
     console.log(isLoggedIn);

@@ -51,7 +51,7 @@ function TableItems({ ruta, edicion }) {
 
     console.log(data);
     return (
-        <div>
+        <div className= "table-responsive">
             <table className="table table-bordered table-striped">
                 <thead  className="thead-dark">
                 <tr>
@@ -59,6 +59,7 @@ function TableItems({ ruta, edicion }) {
                         mostrar.includes(key) &&
                         <th key={key}>{key}</th>
                     ))}
+                    {edicion &&<th> <h3>Moderacion</h3></th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -70,8 +71,8 @@ function TableItems({ ruta, edicion }) {
                             </td>
                         ))}
 
-                        {edicion && <td>  <button onClick={() => openEditForm(item)}>Editar</button> </td>}
-                        {edicion && <td><button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)}>Borrar</button> </td>}
+                        {edicion && <td> <button onClick={() => openEditForm(item) } >Editar</button>
+                                        <button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)} className = "m-1">Borrar</button> </td> }
                     </tr>
 
                 ))}
