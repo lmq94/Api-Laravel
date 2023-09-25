@@ -68,13 +68,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( int $id)
+    public function show( Request $request)
     {
-        $user = $this->buscaCuenta($id);
+        $user = $this->buscaCuenta($request->get("user")->getAttribute("id"));
+        
 
         if($user)
 
-            return  $user->jsonSerialize();
+            return  response()->json($user);
 
         else
             return response()->json('No se encuentra el usuario solicitado', 204);

@@ -33,7 +33,7 @@ use App\Http\Controllers\CuentaController;
             Route::patch('clientes/{id}', [ClienteController::class, 'update']);
 
             Route::get('users', [UserController::class, 'index']);
-            Route::get('users/{id}', [UserController::class, 'show']);
+            Route::get('user', [UserController::class, 'show']);
             Route::post('reset-password', [UserController::class, 'resetPassword']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
             Route::post('logout', [AuthController::class, 'logout']);
