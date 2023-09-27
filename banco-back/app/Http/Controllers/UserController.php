@@ -49,6 +49,14 @@ class UserController extends Controller
                             "rol" => $request->get("rol"),
                             "id_cliente" => $request->get("id_cliente")]);
 
+
+
+        $image = $request->file('profile_picture');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/images', $imageName);
+
+        $user->setAttribute('profile_picture','images/' . $imageName);
+
         if($request->get('rol') == "admin"){
 
             $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456"]) ;
@@ -71,7 +79,7 @@ class UserController extends Controller
     public function show( Request $request)
     {
         $user = $this->buscaCuenta($request->get("user")->getAttribute("id"));
-        
+
 
         if($user)
 
