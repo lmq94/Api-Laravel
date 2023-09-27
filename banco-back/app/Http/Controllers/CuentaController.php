@@ -50,7 +50,7 @@ class CuentaController extends Controller
                                 "tipo_de_cuenta" => $request->get("tipo_de_cuenta"),
                                 "moneda" => $request->get("moneda"),
                                 "id_cliente" => $request->get("user")->getAttribute("id_cliente"),
-                                "cbu" => str_pad(mt_rand(1, 9999999999999999999999), 22, '0', STR_PAD_LEFT),
+                                "cbu"  => implode('', array_map(fn() => mt_rand(0, 9), range(1, 22))),
                                 ]);
         $cuenta->save();
 
