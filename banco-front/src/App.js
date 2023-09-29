@@ -10,6 +10,7 @@ import {Header} from "./templates/Header";
 import UserRegister from "./crud/UserRegister";
 import CreateCuenta from "./crud/CreateCuenta";
 import UserData from "./crud/UserData";
+import Footer from "./templates/Footer";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +35,6 @@ function App() {
                 <Header isLoggedIn={isLoggedIn} setIsLoggedInCallback={setIsLoggedIn} userRole={userRole} />
                 <main className="container">
                     <Routes>
-                        {/* Ruta por defecto */}
                         <Route
                             path="/"
                             element={
@@ -51,11 +51,13 @@ function App() {
                             }
                         />
 
-                        {/* Ruta para el registro */}
                         <Route path = "/register" element={<UserRegister />} />
                         <Route path = "/create-account" element ={<CreateCuenta/>}/>
                     </Routes>
                 </main>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </Router>
     );
