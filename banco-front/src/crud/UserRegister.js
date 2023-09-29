@@ -7,10 +7,13 @@ function UserRegister() {
         name: "",
         email: "",
         password: "",
-        rol: "",
-        id_cliente: ""
+        rol: "normal",
+        id_cliente: "",
+        profile_picture: ""
 
     });
+
+
 
     const [clienteOptions, setClienteOptions] = useState([]);
 
@@ -29,18 +32,41 @@ function UserRegister() {
             id_cliente: selectedCliente,
         });
     };
+    const [selectedImage, setSelectedImage] = useState(null);
+
+
+
+    const handleImageChange = (e) => {
+            const imageFile = e.target.files[0];
+        console.log("Imagen seleccionada:", imageFile);
+            setUserData({
+                ...userData,
+                profile_picture: imageFile,
+            });
+
+
+        if (imageFile) {
+            // Leemos el archivo seleccionado como una URL de datos (base64)
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setSelectedImage(e.target.result);
+            };
+            reader.readAsDataURL(imageFile);
+        }
+};
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(userData);
         AddUser(userData);
-        // Limpia el formulario después de enviar los datos
+
         setUserData({
             name: "",
             email: "",
             password: "",
             rol: "normal",
-            id_cliente: ""
+            id_cliente: "",
+            profile_picture: ""
         });
     };
 
@@ -57,9 +83,11 @@ function UserRegister() {
     }, []);
 
     return (
+
         <form onSubmit={handleSubmit} className="needs-validation" noValidate>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">Nombre de usuario:</label>
+            <h2 className="text-center mt-3 mb-5">Fomulario de registro de usuario</h2>
+            <div className="mb-3 text-center">
+                <label htmlFor="name" className="form-label ">Nombre de usuario:</label>
                 <div className="col-md-6 mx-auto">
                     <input
                         type="text"
@@ -69,10 +97,10 @@ function UserRegister() {
                         onChange={handleChange}
                         className="form-control"
                         required
-                    />
+                   />
                 </div>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 text-center">
                 <label htmlFor="email" className="form-label">Correo electrónico:</label>
                 <div className="col-md-6 mx-auto">
                     <input
@@ -86,7 +114,7 @@ function UserRegister() {
                     />
                 </div>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 text-center">
                 <label htmlFor="password" className="form-label">Contraseña:</label>
                 <div className="col-md-6 mx-auto">
                     <input
@@ -100,7 +128,7 @@ function UserRegister() {
                     />
                 </div>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 text-center">
                 <label htmlFor="id_cliente" className="form-label">Cliente:</label>
                 <div className="col-md-6 mx-auto">
                     <select
@@ -121,8 +149,34 @@ function UserRegister() {
                         ))}
                     </select>
                 </div>
+                <div className="mb-3 text-center">
+                    <label htmlFor="profile_picture" className="form-label">Imagen:</label>
+                    <div className="col-md-6 mx-auto">
+                        <input
+                            type="file"
+                            id="profile_picture"
+                            name="profile_picture"
+                            onChange={handleImageChange}
+                            className="form-control"
+                            accept="image/*"
+                            required
+                        />
+                    </div>
+                </div>
+                {selectedImage && (
+                    <div className="col-md-6 mx-auto">
+                        <h2>Vista previa de la imagen:</h2>
+                        <img src={selectedImage} alt="Imagen seleccionada" style={{ maxWidth: '100px' }} />
+                    </div>
+
+                )}
+
+
             </div>
-            <button type="submit" className="btn btn-primary">Crear Usuario</button>
+            <div className="text-center mt-3">
+                <button type="submit" className="btn btn-primary">Crear Usuario</button>
+            </div>
+
         </form>
     );
 }
