@@ -71,7 +71,7 @@ function TableItems({ ruta, edicion }) {
                             </td>
                         ))}
 
-                        {edicion && <td> <button onClick={() => openEditForm(item) } >Editar</button>
+                        {edicion && <td> <button onClick={() => openEditForm(item) } className = "m-1">Editar</button>
                                         <button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)} className = "m-1">Borrar</button> </td> }
                     </tr>
 
