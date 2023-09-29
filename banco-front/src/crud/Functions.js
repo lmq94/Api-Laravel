@@ -1,5 +1,6 @@
-import {axiosInstance} from "../AxiosConfig";
+import {axiosInstance, setAuthToken} from "../AxiosConfig";
 import Cookies from "js-cookie";
+
 
      function UpdateFila(ruta,  item) {
         axiosInstance.patch(`${ruta}/${item.id}`, item)
@@ -35,8 +36,11 @@ import Cookies from "js-cookie";
     }
 
     function AddUser(item){
-        axiosInstance.post("/users", item)
-            .then((response) => {
+        axiosInstance.post("/users", item,{
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }).then((response) => {
                 console.log('Datos actualizados:', response.data);
                 // Realizar cualquier acción adicional después de la actualización
             })
@@ -70,6 +74,8 @@ import Cookies from "js-cookie";
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
             });
-    }
+
+}
+
 
     export {UpdateFila,UpdateComponent, DeleteFila, AddUser, AddCuenta, Logout}
