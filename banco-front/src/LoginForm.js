@@ -45,9 +45,9 @@ function LoginForm({ setIsLoggedInCallback, setUserRoleCallback}) {
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <div className="card">
-                            <div className="card-header">Iniciar Sesión</div>
+                            <div className="card-header container text-center">Iniciar Sesión</div>
                             <div className="card-body">
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} className = "container text-center">
                                     <div className="mb-3">
                                         <label htmlFor="email" className="form-label">Email:</label>
                                         <input
