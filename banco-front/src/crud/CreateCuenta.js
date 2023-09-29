@@ -31,7 +31,7 @@ function CreateCuenta() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="needs-validation" noValidate>
+        <form onSubmit={handleSubmit} className="needs-validation container text-center" noValidate>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">Cargue un saldo inicial:</label>
                 <div className="col-md-6 mx-auto">
