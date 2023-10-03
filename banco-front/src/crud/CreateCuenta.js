@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {AddCuenta} from "./Functions";
+import {axiosInstance} from "../AxiosConfig";
 
-function CreateCuenta() {
+function CreateCuenta({userRole}) {
     const [cuentaData, setcuentaData] = useState({
         saldo: "",
         tipo_de_cuenta: "",
@@ -29,6 +30,28 @@ function CreateCuenta() {
             id_cliente: ""
         });
     };
+
+    const [clienteOptions, setClienteOptions] = useState([]);
+
+    const handleClienteChange = (e) => {
+        const selectedCliente = e.target.value;
+        setcuentaData({
+            ...cuentaData,
+            id_cliente: selectedCliente,
+        });
+    };
+
+    useEffect(() => {
+        axiosInstance.get("clientes")
+            .then((response) => {
+                console.log(response.data);
+                setClienteOptions(response.data);
+
+            })
+            .catch((error) => {
+                console.error('Error al obtener datos:', error);
+            });
+    }, []);
 
     return (
         <form onSubmit={handleSubmit} className="needs-validation container text-center" noValidate>
@@ -83,6 +106,28 @@ function CreateCuenta() {
                     </select>
                 </div>
             </div>
+            {userRole === "admin" && (<div className="mb-3 text-center">
+                <label htmlFor="id_cliente" className="form-label">Cliente:</label>
+                <div className="col-md-6 mx-auto">
+                    <select
+                        id="id_cliente"
+                        name="id_cliente"
+                        value={cuentaData.id_cliente}
+                        onChange={handleClienteChange}
+                        className="form-control"
+                        required
+                    >
+                        <option value="" disabled>
+                            Seleccione un cliente
+                        </option>
+                        {clienteOptions.map((cliente) => (
+                            <option key={cliente.id} value={cliente.id}>
+                                {cliente.alias}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div> )}   
             <button type="submit" className="btn btn-primary">Abrir cuenta</button>
         </form>
     );
