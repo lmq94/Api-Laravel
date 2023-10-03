@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
-import {DeleteFila, UpdateComponent, UpdateFila} from "./Functions";
+import {DeleteFila, UpdateComponent, getComponent} from "./Functions";
 
 
 function TableItems({ ruta, edicion }) {
@@ -11,7 +11,7 @@ function TableItems({ ruta, edicion }) {
     const [editingData, setEditingData] = useState({});
 
     let mostrar = ['alias', 'city', 'dni','saldo', 'tipo_de_cuenta', 'moneda', 'name',
-        'email','rol'];
+        'email','rol', 'cbu'];
 
     const openEditForm = (rowData) => {
         setIsEditing(true);
@@ -26,12 +26,12 @@ function TableItems({ ruta, edicion }) {
 
     const handleUpdate = (updatedData) => {
         console.log(updatedData);
-        UpdateFila(ruta, updatedData);
+        UpdateComponent(ruta, data);
 
 
         // Cierra el formulario de edición
         closeEditForm();
-        UpdateComponent(setData, ruta);
+        getComponent(setData, ruta);
     };
 
 
@@ -72,7 +72,7 @@ function TableItems({ ruta, edicion }) {
                         ))}
 
                         {edicion && <td> <button onClick={() => openEditForm(item) } className = "m-1">Editar</button>
-                                        <button onClick={() => DeleteFila(ruta,item['id'])&&UpdateComponent(setData, ruta)} className = "m-1">Borrar</button> </td> }
+                                        <button onClick={() => DeleteFila(ruta,item['id'])&&getComponent(setData, ruta)} className = "m-1">Borrar</button> </td> }
                     </tr>
 
                 ))}
