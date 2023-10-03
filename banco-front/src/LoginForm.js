@@ -27,7 +27,10 @@ function LoginForm({ setIsLoggedInCallback, setUserRoleCallback}) {
 
             if (response.status === 200) {
 
-                Cookies.set('api-key', response.data.token);
+                const expirationTimeInSeconds = 3600;
+                const expirationDate = new Date( new Date().getTime() + expirationTimeInSeconds * 1000);
+
+                Cookies.set('api-key', response.data.token,{ expires: expirationDate });
 
                 setIsLoggedInCallback(true);
                 setUserRoleCallback(response.data.rol);
