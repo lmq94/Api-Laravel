@@ -2,8 +2,11 @@ import {axiosInstance, setAuthToken} from "../AxiosConfig";
 import Cookies from "js-cookie";
 
 
-     function UpdateFila(ruta,  item) {
-        axiosInstance.patch(`${ruta}/${item.id}`, item)
+     function UpdateComponent(ruta,  item) {
+        console.log(item);
+        axiosInstance.patch(`${ruta}/${item.id}`, item, { headers: {
+            "Content-Type": "multipart/form-data",
+        }})
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
 
@@ -15,6 +18,9 @@ import Cookies from "js-cookie";
 
     }
 
+
+    
+
    async function DeleteFila(ruta, id) {
         try {
             const response = await axiosInstance.delete(`${ruta}` + "/" + `${id}`);
@@ -24,7 +30,7 @@ import Cookies from "js-cookie";
         }
     }
 
-    function UpdateComponent(setData, ruta){
+    function getComponent(setData, ruta){
         axiosInstance.get(ruta)
             .then((response) => {
                 console.log(response.data);
@@ -33,6 +39,18 @@ import Cookies from "js-cookie";
             .catch((error) => {
                 console.error('Error al obtener datos:', error);
             });
+    }
+
+    function UpdateRol(setUserData){
+       
+        axiosInstance.get("/user")
+        .then((response) => {
+          console.log('Datos actualizados:', response.data);
+          setUserData(response.data.rol);
+        })
+        .catch((error) => {
+          console.error('Error al actualizar los datos:', error);
+        });
     }
 
     function AddUser(item){
@@ -75,7 +93,33 @@ import Cookies from "js-cookie";
                 console.error('Error al actualizar los datos:', error);
             });
 
-}
+           
+            
+
+    }
+
+    async function  UpdateUser(item) {
+        const data = new FormData();
+        data.append('_method', 'PUT'); // Método HTTP PATCH
+        data.append('name', item.name);
+        data.append('email', item.email);
+        data.append('profile_picture', item.profile_picture);
+
+        console.log(item);
+
+        console.log(data);
+      
+        const response = await axiosInstance.post(`users/${item.id}`, data)                                               
+          .then((response) => {
+            console.log('Datos actualizados:', response.data);
+          })
+          .catch((error) => {
+            console.error('Error al actualizar los datos:', error);
+          });
+      }
+
+ 
 
 
-    export {UpdateFila,UpdateComponent, DeleteFila, AddUser, AddCuenta, Logout}
+
+    export {getComponent,UpdateComponent, DeleteFila, AddUser, AddCuenta, UpdateRol, UpdateUser, Logout}
