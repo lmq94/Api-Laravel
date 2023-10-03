@@ -21,7 +21,7 @@ class UserController extends Controller
     }
 
 
-    private function buscaCuenta($id){
+    private function buscaUser($id){
         $users = User::all();
 
         return $users->find($id);
@@ -29,31 +29,27 @@ class UserController extends Controller
 
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
 
         $user = new User([  "name" => $request->get("name"),
-                            "email" => $request->get("email"),
-                            "password" => $request->get("password"),
-                            "rol" => $request->get("rol"),
-                            "id_cliente" => $request->get("id_cliente")]);
+            "email" => $request->get("email"),
+            "password" => $request->get("password"),
+            "rol" => $request->get("rol"),
+            "id_cliente" => $request->get("id_cliente")]);
 
 
 
-        $image = $request->file('profile_picture');
+        $image = $request->file("profile_picture");
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/images', $imageName);
+        $image->storeAs('/images', $imageName);
 
         $user->setAttribute('profile_picture','images/' . $imageName);
 
@@ -73,12 +69,10 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+  
     public function show( Request $request)
     {
-        $user = $this->buscaCuenta($request->get("user")->getAttribute("id"));
+        $user = $this->buscaUser($request->get("user")->getAttribute("id"));
 
 
         if($user)
@@ -90,24 +84,46 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cuenta $cuenta)
+    public function getImage($filename)
     {
-        //
+
+
+        $url = asset($filename);
+
+        return response()->json(['url' => $url]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+   
+    public function edit(Cuenta $cuenta)
     {
-        $user = $this->buscaCuenta($id);
+        
+    }
+
+   
+    public function update(Request $request, $id)
+
+    
+    {
+        
+        $user = $this->buscaUser($id);
+       
 
         if($user) {
 
-            $user->update($request->all());
+            $image = $request->file("profile_picture");
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('/images', $imageName);
+
+
+            $user->update([  "name" => $request->get("name"),
+            "email" => $request->get("email"),
+            "profile_picture" => 'images/' . $imageName
+            
+            ]);
+
+        
+             
 
             return response()->json($user);
 
@@ -117,24 +133,30 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy( $id)
+   
+    public function destroy($id)
     {
         user::destroy($id);
 
         return response()->json('EL usuario ha sido eliminado');
     }
+    
 
     public function resetPassword(Request $request){
 
-       $user = User::all()->where('email', $request->get("email"))->first();
+       $user = User::all()->where('email', $request->get("user")->getAttribute("email"))->first();
+       
 
-       $user->update(["password" => $request->get("password")]);
+        if(password_verify( $request->get("currentPassword"),$user->getAttribute("password"))) {
 
+            $user->update(["password" => $request->get("newPassword")]);
 
-       return  response()->json("Se actualizo con exito la contraseña");
+            return  response()->json("Se actualizo con exito la contraseña");
+       }
+
+      else
+        
+        return response()->json("Contraseña actual incorrecta", 401);
     }
 
 
