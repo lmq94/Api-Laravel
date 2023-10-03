@@ -19,12 +19,9 @@ class setUserFromToken
     {
         if (!$request->hasHeader("api-key")) return new Response("Forbidden",403);
 
-        //Agarra el token enviado por el usuario de la request
-
 
         $tokenValue = $request->header("api-key");
 
-        //Busca el token en DB por valor
 
         $userId = Token::all()->where('valor', md5($tokenValue))?->first()?->getAttribute("user");
 
