@@ -89,9 +89,12 @@ class CuentaController extends Controller
     {
         $cuenta = $this->buscaCuenta($id);
 
+
         if($cuenta) {
 
-            $cuenta->update($request->all());
+            $cuenta->update(["saldo" => $request->get("saldo"),
+                             "tipo_de_cuenta" => $request->get("tipo_de_cuenta"),
+                            "moneda" => $request->get("moneda"),]);
 
             return response()->json($cuenta);
 

@@ -57,9 +57,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Cliente([$request->get()
-
-                                                ]);
+        $cliente = new Cliente(['alias' => $request->get('alias'),
+                                'city' => $request->get('city'),
+                                'dni' =>$request->get('city'),]);
 
         $cliente->save();
 
@@ -99,7 +99,10 @@ class ClienteController extends Controller
 
         if($cliente) {
 
-            $cliente->update($request->all());
+            $cliente->update(['alias' => $request->get('alias'),
+                             'city' => $request->get('city'),
+                            'dni' =>$request->get('city'),]
+        );
 
             return response()->json($cliente);
 
