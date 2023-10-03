@@ -36,10 +36,13 @@ use App\Http\Controllers\CuentaController;
             Route::get('user', [UserController::class, 'show']);
             Route::post('reset-password', [UserController::class, 'resetPassword']);
             Route::delete('users/{id}', [UserController::class, 'destroy']);
+            Route::put('users/{id}', [UserController::class, 'update']);
             Route::post('logout', [AuthController::class, 'logout']);
+            Route::get('show/{filename}', [UserController::class,'getImage']);
 
 
         });
+
         Route::get('clientes', [ClienteController::class, 'index']);
         Route::post('clientes', [ClienteController::class, 'store']);
         Route::post('users', [UserController::class, 'store']);
