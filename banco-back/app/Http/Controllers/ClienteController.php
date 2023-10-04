@@ -55,7 +55,7 @@ class ClienteController extends Controller
     {
         $cliente = new Cliente(['alias' => $request->get('alias'),
                                 'city' => $request->get('city'),
-                                'dni' => $request->get('city'),
+                                'dni' => $request->get('dni'),
                                 'domicilio' => $request->get('domicilio'),          
                                 'numero_de_telefono' => $request->get('numero_de_telefono'), 
                             ]);
