@@ -40,35 +40,32 @@ class ClienteController extends Controller
                 return response()->json($cuentas);
             }
             else
-                 return response()->json("No se encontro el cliente solicitado", 404);
+                 return response()->json("No se encontro el cliente solicitado", 204);
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
         $cliente = new Cliente(['alias' => $request->get('alias'),
                                 'city' => $request->get('city'),
-                                'dni' =>$request->get('city'),]);
+                                'dni' => $request->get('city'),
+                                'domicilio' => $request->get('domicilio'),          
+                                'numero_de_telefono' => $request->get('numero_de_telefono'), 
+                            ]);
 
         $cliente->save();
 
         return response()->json($cliente);
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show($id)
     {
 
@@ -82,17 +79,13 @@ class ClienteController extends Controller
             return response()->json("No se encuentra el cliente solicitado", 204);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit(Cliente $cliente)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+ 
     public function update(Request $request, $id)
     {
         $cliente = $this->buscaClientes($id);
@@ -101,8 +94,10 @@ class ClienteController extends Controller
 
             $cliente->update(['alias' => $request->get('alias'),
                              'city' => $request->get('city'),
-                            'dni' =>$request->get('city'),]
-        );
+                            'dni' =>$request->get('city'),
+                            'domicilio' => $request->get('domicilio'),          
+                            'numero_de_telefono' => $request->get('numero_de_telefono'), 
+                            ]);
 
             return response()->json($cliente);
 
@@ -111,9 +106,7 @@ class ClienteController extends Controller
             return response()->json("No se encuentra el cliente", 204);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+ 
     public function destroy($id)
     {
         Cliente::destroy($id);
