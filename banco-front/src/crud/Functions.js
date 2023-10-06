@@ -1,12 +1,10 @@
-import {axiosInstance, setAuthToken} from "../AxiosConfig";
+import {axiosInstance} from "../AxiosConfig";
 import Cookies from "js-cookie";
 
 
      function UpdateComponent(ruta,  item) {
         console.log(item);
-        axiosInstance.patch(`${ruta}/${item.id}`, item, { headers: {
-            "Content-Type": "multipart/form-data",
-        }})
+        axiosInstance.patch(`${ruta}/${item.id}`, item)
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
 
@@ -18,13 +16,12 @@ import Cookies from "js-cookie";
 
     }
 
-
     
 
    async function DeleteFila(ruta, id) {
         try {
             const response = await axiosInstance.delete(`${ruta}` + "/" + `${id}`);
-            return response.data; // Puedes manejar la respuesta según tus necesidades
+            return response.data; 
         } catch (error) {
             throw error;
         }
@@ -53,33 +50,75 @@ import Cookies from "js-cookie";
         });
     }
 
-    function AddUser(item){
+    function AddUser(item, setSuccessMessage, setErrorMessage){
         axiosInstance.post("/users", item,{
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         }).then((response) => {
                 console.log('Datos actualizados:', response.data);
-                // Realizar cualquier acción adicional después de la actualización
+                setSuccessMessage("El usuario se ha creado con éxito");
+                setErrorMessage(null); 
             })
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
+                if (error.response && error.response.data && error.response.data.errors) {
+                    const errorMessages = Object.values(error.response.data.errors).flat();
+                    setErrorMessage(errorMessages.join(", "));
+                }
+                else{
+                setErrorMessage("Error al crear el usuario: " + error.message);
+                setSuccessMessage(null); 
+                }
             });
 
 
     }
 
-    function AddCuenta(item){
+    function AddCuenta(item, setSuccessMessage, setErrorMessage){
         axiosInstance.post("/cuentas", item)
             .then((response) => {
                 console.log('Datos actualizados:', response.data);
+                setSuccessMessage("La cuenta se ha creado con éxito");
+                setErrorMessage(null); 
 
             })
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
+                if (error.response && error.response.data && error.response.data.errors) {
+                    const errorMessages = Object.values(error.response.data.errors).flat();
+                    setErrorMessage(errorMessages.join(", "));
+                }
+                else{
+                setErrorMessage("Error al crear la cuenta: " + error.message);
+                setSuccessMessage(null); 
+                }
             });
 
     }
+
+    function AddCliente(item,  setSuccessMessage, setErrorMessage ){
+        axiosInstance.post("/clientes", item)
+            .then((response) => {
+                console.log('Datos actualizados:', response.data);
+                setSuccessMessage("El cliente se ha creado con éxito");
+                setErrorMessage(null); 
+
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos:', error);
+                if (error.response && error.response.data && error.response.data.errors) {
+                    const errorMessages = Object.values(error.response.data.errors).flat();
+                    setErrorMessage(errorMessages.join(", "));
+                }
+                else{
+                setErrorMessage("Error al crear el cliente: " + error.message);
+                setSuccessMessage(null); 
+                }
+            });
+        };
+
+    
 
     function Logout ({ setIsLoggedInCallback}) {
         axiosInstance.post("/logout")
@@ -91,6 +130,7 @@ import Cookies from "js-cookie";
             })
             .catch((error) => {
                 console.error('Error al actualizar los datos:', error);
+                
             });
 
            
@@ -100,7 +140,7 @@ import Cookies from "js-cookie";
 
     async function  UpdateUser(item) {
         const data = new FormData();
-        data.append('_method', 'PUT'); // Método HTTP PATCH
+        data.append('_method', 'PATCH'); 
         data.append('name', item.name);
         data.append('email', item.email);
         data.append('profile_picture', item.profile_picture);
@@ -112,9 +152,11 @@ import Cookies from "js-cookie";
         const response = await axiosInstance.post(`users/${item.id}`, data)                                               
           .then((response) => {
             console.log('Datos actualizados:', response.data);
+        
           })
           .catch((error) => {
             console.error('Error al actualizar los datos:', error);
+        
           });
       }
 
@@ -122,4 +164,4 @@ import Cookies from "js-cookie";
 
 
 
-    export {getComponent,UpdateComponent, DeleteFila, AddUser, AddCuenta, UpdateRol, UpdateUser, Logout}
+    export {getComponent,UpdateComponent, DeleteFila, AddUser, AddCuenta, AddCliente, UpdateRol, UpdateUser, Logout}
