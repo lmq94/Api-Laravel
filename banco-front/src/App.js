@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Header} from "./templates/Header";
 import UserRegister from "./crud/UserRegister";
 import CreateCuenta from "./crud/CreateCuenta";
+import CreateCliente from "./crud/CreateCliente"
 import Footer from "./templates/Footer";
 import UserConfig from "./crud/userConfig/UserConfig";
 import Cookies from 'js-cookie';
@@ -84,9 +85,10 @@ function App() {
                                 }
                             />
 
-                            <Route path="/register" element={<UserRegister />} />
-                            <Route path="/create-account" element={<CreateCuenta userRole={userRole}  />} />
-                            <Route path="/user-config" element={<UserConfig />} />
+                            <Route path = "/register" element = {<UserRegister />} />
+                            <Route path ="/create-account" element = {<CreateCuenta userRole={userRole}  />} />
+                            <Route path = "/user-config" element = {<UserConfig />} />
+                            <Route path = "/create-cliente" element = {<CreateCliente />} />
                             {/* Agrega una redirección para rutas no encontradas */}
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>
