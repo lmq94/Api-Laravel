@@ -46,7 +46,6 @@ function UserRegister() {
 
 
         if (imageFile) {
-            // Leemos el archivo seleccionado como una URL de datos (base64)
             const reader = new FileReader();
             reader.onload = (e) => {
                 setSelectedImage(e.target.result);
@@ -55,10 +54,14 @@ function UserRegister() {
         }
 };
 
+
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(userData);
-        AddUser(userData);
+        AddUser(userData, setSuccessMessage, setErrorMessage);
 
         setUserData({
             name: "",
@@ -129,8 +132,8 @@ function UserRegister() {
                 </div>
             </div>
             <div className="mb-3 text-center">
-                <label htmlFor="id_cliente" className="form-label">Cliente:</label>
-                <div className="col-md-6 mx-auto">
+                <label htmlFor ="id_cliente" className="form-label">Cliente:</label>
+                <div className ="col-md-6 mx-auto">
                     <select
                         id="id_cliente"
                         name="id_cliente"
@@ -148,6 +151,7 @@ function UserRegister() {
                             </option>
                         ))}
                     </select>
+                    <p className = "mt-2" >Recordar que un cliente solo puede tener 1 solo usuario</p>
                 </div>
                 <div className="mb-3 text-center">
                     <label htmlFor="profile_picture" className="form-label">Imagen:</label>
@@ -173,6 +177,17 @@ function UserRegister() {
 
 
             </div>
+            {successMessage && (
+                <div className="alert alert-success mt-3">
+                    {successMessage}
+                </div>
+            )}
+
+            {errorMessage && (
+                <div className="alert alert-danger mt-3 error-message">
+                    {errorMessage}
+                </div>
+            )}
             <div className="text-center mt-3">
                 <button type="submit" className="btn btn-primary">Crear Usuario</button>
             </div>

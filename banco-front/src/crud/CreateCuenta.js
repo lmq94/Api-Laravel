@@ -4,9 +4,9 @@ import {axiosInstance} from "../AxiosConfig";
 
 function CreateCuenta({userRole}) {
     const [cuentaData, setcuentaData] = useState({
-        saldo: "",
-        tipo_de_cuenta: "",
-        moneda: "",
+        saldo: "0",
+        tipo_de_cuenta: "Caja de ahorro",
+        moneda: "Peso",
         id_cliente: ""
 
     });
@@ -19,10 +19,14 @@ function CreateCuenta({userRole}) {
         });
     };
 
+
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(cuentaData);
-        AddCuenta(cuentaData);
+        AddCuenta(cuentaData, setSuccessMessage,setErrorMessage );
         setcuentaData({
             saldo: "",
             tipo_de_cuenta: "",
@@ -52,6 +56,8 @@ function CreateCuenta({userRole}) {
                 console.error('Error al obtener datos:', error);
             });
     }, []);
+
+    
 
     return (
         <form onSubmit={handleSubmit} className="needs-validation container text-center" noValidate>
@@ -128,6 +134,20 @@ function CreateCuenta({userRole}) {
                     </select>
                 </div>
             </div> )}   
+
+            {successMessage && (
+                <div className="alert alert-success mt-3">
+                    {successMessage}
+                </div>
+            )}
+
+            {/* Mostrar mensaje de error si errorMessage tiene un valor */}
+            {errorMessage && (
+                <div className="alert alert-danger mt-3 error-message">
+                    {errorMessage}
+                </div>
+            )}
+            
             <button type="submit" className="btn btn-primary">Abrir cuenta</button>
         </form>
     );

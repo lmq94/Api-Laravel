@@ -20,10 +20,13 @@ function CreateCuenta({userRole}) {
         });
     };
 
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(clienteData);
-        AddCliente(clienteData);
+        AddCliente(clienteData, setSuccessMessage, setErrorMessage);
         setclienteData({
             alias: "",
             city: "",
@@ -106,6 +109,17 @@ function CreateCuenta({userRole}) {
                     />
                 </div>
             </div>
+            {successMessage && (
+                <div className="alert alert-success mt-3">
+                    {successMessage}
+                </div>
+            )}
+
+            {errorMessage && (
+                <div className="alert alert-danger mt-3 error-message">
+                    {errorMessage}
+                </div>
+            )}
             
             
             <button type="submit" className="btn btn-primary">Crear cliente</button>
