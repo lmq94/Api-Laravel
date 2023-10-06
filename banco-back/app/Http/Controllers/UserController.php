@@ -6,9 +6,35 @@ use App\Models\Cliente;
 use App\Models\Cuenta;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+
+    protected $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6',
+        'rol' => 'required|in:normal,admin',
+        'id_cliente' => 'required|unique|exists:clientes,id',
+        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+    ];
+
+    protected  $messages = [
+        'required' => 'El campo :attribute es obligatorio.',
+        'unique' => 'El :attribute ya está en uso.',
+        'email' => 'El :attribute debe ser una dirección de correo electrónico válida.',
+        'min' => 'La :attribute debe tener al menos :min caracteres.',
+        'in' => 'El :attribute no es válido.',
+        'exists' => 'El :attribute seleccionado no existe.',
+        'image' => 'El :attribute debe ser una imagen válida.',
+        'mimes' => 'El :attribute debe ser una imagen de tipo :values.',
+        'max' => 'El :attribute no debe ser mayor de :max KB.',
+    ];
+
+
     public function index(Request $request)
     {
         if($this->isAdmin($request)) {
@@ -36,43 +62,63 @@ class UserController extends Controller
     }
 
   
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+       
 
-        $user = new User([  "name" => $request->get("name"),
-            "email" => $request->get("email"),
-            "password" => $request->get("password"),
-            "rol" => $request->get("rol"),
-            "id_cliente" => $request->get("id_cliente")]);
+            $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 400);
+            }
+            else {
 
+                $user = new User([  "name" => $request->get("name"),
+                        "email" => $request->get("email"),
+                        "password" => $request->get("password"),
+                        "rol" => $request->get("rol"),
+                        "id_cliente" => $request->get("id_cliente")]);
 
-        $image = $request->file("profile_picture");
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('/images', $imageName);
+                    $image = $request->file("profile_picture");
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('/images', $imageName);
 
-        $user->setAttribute('profile_picture','images/' . $imageName);
+                    $user->setAttribute('profile_picture','images/' . $imageName);
 
-        if($request->get('rol') == "admin"){
+                    if($request->get('rol') == "admin"){
 
-            $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456"]) ;
+                        $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456"]) ;
 
-            $mockCliente->save();
+                        $mockCliente->save();
 
-            $user->setAttribute("id_cliente",$mockCliente->getAttribute("id"));
-        }
+                        $user->setAttribute("id_cliente",$mockCliente->getAttribute("id"));
+                    }
 
+                    $user->save();
 
-        $user->save();
-
-        return response()->json($user);
+                    return response()->json($user);
+            }         
 
     }
 
+    public function show($id){
+        $user = User::find($id);
+
+        if($user)
+
+            return  response()->json($user);
+
+        else
+            return response()->json('No se encuentra el usuario solicitado', 204);
+
+    }
+
+
+    
+
   
-    public function show( Request $request)
+    public function showUserSession( Request $request)
     {
-        $user = $this->buscaUser($request->get("user")->getAttribute("id"));
+        $user = User::find($request->get("user")->getAttribute("id"));
 
 
         if($user)
@@ -103,26 +149,24 @@ class UserController extends Controller
    
     public function update(Request $request, $id)
 
-    
     {
         
-        $user = $this->buscaUser($id);
-       
+        $user = User::find($id);
+    
 
         if($user) {
 
             $image = $request->file("profile_picture");
+
+            if( $image) {
+
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('/images', $imageName);
+            $user->setAttribute("profile_picture",'images/' . $imageName );
+            }
 
+            $user->update($request->all());
 
-            $user->update([  "name" => $request->get("name"),
-            "email" => $request->get("email"),
-            "profile_picture" => 'images/' . $imageName
-            
-            ]);
-
-        
              
 
             return response()->json($user);
@@ -136,9 +180,18 @@ class UserController extends Controller
    
     public function destroy($id)
     {
-        user::destroy($id);
+        $user = $this->buscaUser($id);
 
-        return response()->json('EL usuario ha sido eliminado');
+        $imagePath = $user->profile_picture;
+
+        if (Storage::disk('public')->exists($imagePath)) {
+
+            Storage::disk('public')->delete($imagePath);
+        }
+
+        User::destroy($id);
+
+        return response()->json('El usuario ha sido eliminado');
     }
     
 

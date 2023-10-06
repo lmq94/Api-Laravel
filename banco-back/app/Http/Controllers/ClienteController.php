@@ -3,16 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $rules = [
+        'alias' => 'required|string|max:255',
+        'city' => 'required|string|max:255',
+        'dni' => 'required|max:20',
+        'domicilio' => 'required|string|max:255',
+        'numero_de_telefono' => 'required|max:11',
+    ];
+
+    protected $messages = [
+        'required' => 'El campo :attribute es obligatorio.',
+        'alias.string' => 'El campo Alias debe ser una cadena de caracteres.',
+        'alias.max' => 'El campo Alias no debe tener más de :max caracteres.',
+        'city.string' => 'El campo Ciudad debe ser una cadena de caracteres.',
+        'city.max' => 'El campo Ciudad no debe tener más de :max caracteres.',
+        'dni.max' => 'El campo DNI no debe tener más de :max dígitos.',
+        'domicilio.string' => 'El campo Domicilio debe ser una cadena de caracteres.',
+        'domicilio.max' => 'El campo Domicilio no debe tener más de :max caracteres.',
+        'numero_de_telefono.max' => 'El campo Número de Teléfono no debe tener más de :max dígitos.',
+    ];
+
+
     public function index(Request $request)
     {
             $clientes = Cliente::all();
@@ -21,17 +39,13 @@ class ClienteController extends Controller
 
     }
 
-    private function buscaClientes($id){
-        $clientes = Cliente::all();
-
-        return $clientes->find($id);
-    }
+   
 
     public function cuentas( Request $request){
 
             $user = $request->get("user");
 
-            $cliente = $this->buscaClientes($user->getAttribute("id_cliente"));
+            $cliente = Cliente::find($user->getAttribute("id_cliente"));
 
             if($cliente) {
 
@@ -52,24 +66,33 @@ class ClienteController extends Controller
 
   
     public function store(Request $request)
+
     {
-        $cliente = new Cliente(['alias' => $request->get('alias'),
-                                'city' => $request->get('city'),
-                                'dni' => $request->get('dni'),
-                                'domicilio' => $request->get('domicilio'),          
-                                'numero_de_telefono' => $request->get('numero_de_telefono'), 
-                            ]);
 
-        $cliente->save();
+        $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
-        return response()->json($cliente);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        else {
+            $cliente = new Cliente(['alias' => $request->get('alias'),
+                                    'city' => $request->get('city'),
+                                    'dni' => $request->get('dni'),
+                                    'domicilio' => $request->get('domicilio'),          
+                                    'numero_de_telefono' => $request->get('numero_de_telefono'), 
+                                ]);
+
+            $cliente->save();
+
+            return response()->json($cliente);
+        }
     }
 
    
     public function show($id)
     {
 
-        $cliente = $this->buscaClientes($id);
+        $cliente = Cliente::find($id);
 
         if($cliente)
 
@@ -88,16 +111,11 @@ class ClienteController extends Controller
  
     public function update(Request $request, $id)
     {
-        $cliente = $this->buscaClientes($id);
+        $cliente = Cliente::find($id);
 
         if($cliente) {
 
-            $cliente->update(['alias' => $request->get('alias'),
-                             'city' => $request->get('city'),
-                            'dni' =>$request->get('city'),
-                            'domicilio' => $request->get('domicilio'),          
-                            'numero_de_telefono' => $request->get('numero_de_telefono'), 
-                            ]);
+            $cliente->update($request->all());
 
             return response()->json($cliente);
 
