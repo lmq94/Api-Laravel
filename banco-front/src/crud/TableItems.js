@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
-import {DeleteFila, UpdateComponent, getComponent} from "./Functions";
+import {DeleteFila, UpdateComponent, UpdateUser, getComponent} from "./Functions";
 
 
 function TableItems({ ruta, edicion }) {
@@ -11,7 +11,7 @@ function TableItems({ ruta, edicion }) {
     const [editingData, setEditingData] = useState({});
 
     let mostrar = ['alias', 'city', 'dni','saldo', 'tipo_de_cuenta', 'moneda', 'name',
-        'email','rol', 'cbu'];
+        'email','rol', 'cbu', 'domicilio', 'numero_de_telefono'];
 
     const openEditForm = (rowData) => {
         setIsEditing(true);
@@ -26,7 +26,10 @@ function TableItems({ ruta, edicion }) {
 
     const handleUpdate = (updatedData) => {
         console.log(updatedData);
-        UpdateComponent(ruta, data);
+        if(ruta === '/users')
+         UpdateUser(updatedData);
+        else
+            UpdateComponent(ruta, updatedData);
 
 
         // Cierra el formulario de edición
