@@ -7,9 +7,7 @@ import { AdminPanel, UserPanel } from "./crud/Panel.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Header} from "./templates/Header";
-import UserRegister from "./crud/UserRegister";
-import CreateCuenta from "./crud/CreateCuenta";
-import CreateCliente from "./crud/CreateCliente"
+import{CreateCliente, CreateCuenta, UserRegister} from "./crud/CrearDato"
 import Footer from "./templates/Footer";
 import UserConfig from "./crud/userConfig/UserConfig";
 import Cookies from 'js-cookie';
