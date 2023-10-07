@@ -28,10 +28,7 @@ function TableItems({ ruta, edicion }) {
 
     const handleUpdate = (updatedData) => {
         console.log(updatedData);
-        if(ruta === '/users')
-         UpdateUser(updatedData);
-        else
-            UpdateComponent(ruta, updatedData);
+        UpdateComponent(ruta, updatedData);
 
 
         // Cierra el formulario de edición
