@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import {axiosInstance, setAuthToken} from '../AxiosConfig';
 import Cookies from "js-cookie";
 import {DeleteFila, UpdateComponent, UpdateUser, getComponent} from "./Functions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faEdit, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 
 
 function TableItems({ ruta, edicion }) {
@@ -74,8 +76,8 @@ function TableItems({ ruta, edicion }) {
                             </td>
                         ))}
 
-                        {edicion && <td> <button onClick={() => openEditForm(item) } className = "m-1">Editar</button>
-                                        <button onClick={() => DeleteFila(ruta,item['id'])&&getComponent(setData, ruta)} className = "m-1">Borrar</button> </td> }
+                        {edicion && <td> <button onClick={() => openEditForm(item) } className = "btn btn-primary m-1"> <FontAwesomeIcon icon={faEdit} /> Editar</button>
+                                        <button onClick={() => DeleteFila(ruta,item['id'])&&getComponent(setData, ruta)} className = "btn btn-danger m-1"> <FontAwesomeIcon icon={faTrashAlt} ></FontAwesomeIcon> Borrar</button> </td> }
                     </tr>
 
                 ))}

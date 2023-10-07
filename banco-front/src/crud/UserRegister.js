@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {AddUser} from "./Functions";
 import {axiosInstance} from "../AxiosConfig";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function UserRegister() {
     const [userData, setUserData] = useState({
@@ -189,7 +191,7 @@ function UserRegister() {
                 </div>
             )}
             <div className="text-center mt-3">
-                <button type="submit" className="btn btn-primary">Crear Usuario</button>
+                <button type="submit" className="btn btn-info ms-4"><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear Usuario</button>
             </div>
 
         </form>

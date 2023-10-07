@@ -3,6 +3,8 @@ import TableItems from "./TableItems.js"
 import {setAuthToken} from "../AxiosConfig";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function AdminPanel() {
 
@@ -11,7 +13,7 @@ function AdminPanel() {
 
     const handleCrearCliente = () => {
         // Aquí puedes manejar la lógica para crear un cliente
-        console.log('Crear cliente');
+        navigate('/create-cliente')
       }
       
       function handleCrearUsuario() {
@@ -33,10 +35,10 @@ function AdminPanel() {
             <h2>Usuarios en el banco</h2>
             <TableItems ruta="/users" edicion={true}/>
 
-            <div style={{ marginTop: '20px' }}>
-                <button className="btn btn-info ms-4" onClick={handleCrearCliente}>Crear Cliente</button>
-                <button className="btn btn-info ms-4" onClick={handleCrearUsuario}>Crear Usuario</button>
-                <button className="btn btn-info ms-4" onClick={handleAbrirCuenta}>Abrir Cuenta</button>
+            <div className = "mt-4 mb-4">
+                <button className="btn btn-info ms-4" onClick={handleCrearCliente}> <FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear Cliente</button>
+                <button className="btn btn-info ms-4" onClick={handleCrearUsuario}><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear Usuario</button>
+                <button className="btn btn-info ms-4" onClick={handleAbrirCuenta}><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Abrir Cuenta</button>
             </div>
     </div>
   );
