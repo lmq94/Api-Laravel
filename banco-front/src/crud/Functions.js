@@ -138,7 +138,7 @@ import Cookies from "js-cookie";
 
     }
 
-    async function  UpdateUser(item) {
+    async function  UpdateUser(item, setSuccessMessage, setErrorMessage) {
         const data = new FormData();
         data.append('_method', 'PATCH'); 
         data.append('name', item.name);
@@ -152,10 +152,20 @@ import Cookies from "js-cookie";
         const response = await axiosInstance.post(`users/${item.id}`, data)                                               
           .then((response) => {
             console.log('Datos actualizados:', response.data);
+            setSuccessMessage("El Usuario se ha Actualizado con éxito");
+            setErrorMessage(null); 
         
           })
           .catch((error) => {
             console.error('Error al actualizar los datos:', error);
+            if (error.response && error.response.data && error.response.data.errors) {
+                const errorMessages = Object.values(error.response.data.errors).flat();
+                setErrorMessage(errorMessages.join(", "));
+            }
+            else{
+            setErrorMessage("Error al crear el cliente: " + error.message);
+            setSuccessMessage(null); 
+            }
         
           });
       }
