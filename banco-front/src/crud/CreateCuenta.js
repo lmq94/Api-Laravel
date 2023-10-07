@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {AddCuenta} from "./Functions";
 import {axiosInstance} from "../AxiosConfig";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function CreateCuenta({userRole}) {
     const [cuentaData, setcuentaData] = useState({
@@ -108,7 +110,7 @@ function CreateCuenta({userRole}) {
                         <option value="Dolar">Dolar</option>
                         <option value="Euro">Euro</option>
                         <option value="Yen">Yen</option>
-                        <option value="yuan">yuan</option>
+                        <option value="Yuan">Yuan</option>
                     </select>
                 </div>
             </div>
@@ -148,7 +150,7 @@ function CreateCuenta({userRole}) {
                 </div>
             )}
             
-            <button type="submit" className="btn btn-primary">Abrir cuenta</button>
+            <button type="submit" className="btn btn-info ms-4"><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Abrir cuenta</button>
         </form>
     );
 

@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {AddCliente} from "./Functions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 function CreateCuenta({userRole}) {
@@ -39,6 +41,7 @@ function CreateCuenta({userRole}) {
 
     return (
         <form onSubmit={handleSubmit} className="needs-validation container text-center" noValidate>
+            <h2 className = "mt-4">Crear cliente</h2>
             <div className="mb-3">
                 <label htmlFor="alias" className="form-label">Alias:</label>
                 <div className="col-md-6 mx-auto">
@@ -122,7 +125,7 @@ function CreateCuenta({userRole}) {
             )}
             
             
-            <button type="submit" className="btn btn-primary">Crear cliente</button>
+            <button type="submit" className="btn btn-info ms-4"><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear cliente</button>
         </form>
     );
 
