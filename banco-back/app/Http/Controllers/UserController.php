@@ -18,8 +18,8 @@ class UserController extends Controller
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:6',
         'rol' => 'required|in:normal,admin',
-        'id_cliente' => 'required|unique|exists:clientes,id',
-        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+        'id_cliente' => 'required|unique:users,id_cliente|exists:clientes,id',
+        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
     ];
 
     protected  $messages = [
@@ -78,11 +78,14 @@ class UserController extends Controller
                         "rol" => $request->get("rol"),
                         "id_cliente" => $request->get("id_cliente")]);
 
-                    $image = $request->file("profile_picture");
+                $image = $request->file("profile_picture");
+
+                if($image) {
+
                     $imageName = time() . '.' . $image->getClientOriginalExtension();
                     $image->storeAs('/images', $imageName);
-
                     $user->setAttribute('profile_picture','images/' . $imageName);
+                }    
 
                     if($request->get('rol') == "admin"){
 
@@ -152,35 +155,38 @@ class UserController extends Controller
     {
         
         $user = User::find($id);
-    
 
-        if($user) {
-
+        if ($user) {
             $image = $request->file("profile_picture");
-
-            if( $image) {
-
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('/images', $imageName);
-            $user->setAttribute("profile_picture",'images/' . $imageName );
+    
+            
+            $previousImage = $user->profile_picture;
+    
+            if ($image) {
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('/images', $imageName);
+                $user->setAttribute("profile_picture", 'images/' . $imageName);
+    
+               
+                if ($previousImage) {
+                    Storage::disk('public')->delete($previousImage);
+                }
             }
-
-            $user->update($request->all());
-
-             
-
+    
+            $user->update([ "name" => $request->get("name"),
+                            "email" => $request->get("email"),]);
+    
             return response()->json($user);
+        } else {
 
-        }
-        else
             return response()->json('No se encuentra el usuario solicitado', 204);
-
+        }
     }
 
    
     public function destroy($id)
     {
-        $user = $this->buscaUser($id);
+        $user = User::find($id);
 
         $imagePath = $user->profile_picture;
 
