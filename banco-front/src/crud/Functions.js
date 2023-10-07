@@ -15,7 +15,6 @@ import Cookies from "js-cookie";
 
 
     }
-
     
 
    async function DeleteFila(ruta, id) {
@@ -132,9 +131,7 @@ import Cookies from "js-cookie";
                 console.error('Error al actualizar los datos:', error);
                 
             });
-
-           
-            
+    
 
     }
 
@@ -163,7 +160,7 @@ import Cookies from "js-cookie";
                 setErrorMessage(errorMessages.join(", "));
             }
             else{
-            setErrorMessage("Error al crear el cliente: " + error.message);
+            setErrorMessage("Error al actualizar el usuario: " + error.message);
             setSuccessMessage(null); 
             }
         
