@@ -33,6 +33,7 @@ class ClienteController extends Controller
 
     public function index(Request $request)
     {
+        
             $clientes = Cliente::all();
 
             return response()->json($clientes);

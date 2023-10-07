@@ -24,7 +24,8 @@ class UserController extends Controller
 
     protected  $messages = [
         'required' => 'El campo :attribute es obligatorio.',
-        'unique' => 'El :attribute ya está en uso.',
+        'email.unique' => 'El email ya está en uso.',
+        'id_cliente.unique' => 'Ya existe un usuario para ese cliente',
         'email' => 'El :attribute debe ser una dirección de correo electrónico válida.',
         'min' => 'La :attribute debe tener al menos :min caracteres.',
         'in' => 'El :attribute no es válido.',
@@ -38,23 +39,19 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if($this->isAdmin($request)) {
-        $users = User::all();
 
-        return response()-> json($users);
+            $users = User::all();
+
+            return response()-> json($users);
         }
 
-        return response()->json("No cuentas con los permisos para esta peticion");
+        else
+
+            return response()->json("No cuentas con los permisos para esta peticion", 403);
     }
 
 
-    private function buscaUser($id){
-        $users = User::all();
-
-        return $users->find($id);
-    }
-
-
-
+  
   
     public function create()
     {
