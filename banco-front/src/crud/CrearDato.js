@@ -479,7 +479,7 @@ function UserRegister() {
                 </div>
             )}
             <div className="text-center mt-3">
-                <button type="submit" className="btn btn-info ms-4"><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear Usuario</button>
+                <button type="submit" className="btn btn-info mb-4 mt-4 ms-4"><FontAwesomeIcon icon={faPlus} className="me-2"> </FontAwesomeIcon>Crear Usuario</button>
             </div>
 
         </form>
