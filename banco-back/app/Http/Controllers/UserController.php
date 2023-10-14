@@ -19,7 +19,7 @@ class UserController extends Controller
         'password' => 'required|min:6',
         'rol' => 'required|in:normal,admin',
         'id_cliente' => 'required|unique:users,id_cliente|exists:clientes,id',
-        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ];
 
     protected  $messages = [
@@ -51,20 +51,26 @@ class UserController extends Controller
     }
 
 
-  
-  
+
+
     public function create()
     {
-        
+
     }
 
-  
+
     public function store(Request $request){
-       
 
-            $validator = Validator::make($request->all(), $this->rules, $this->messages);
+        $rules = $this->rules;
 
-            if ($validator->fails()) {
+        if ($request->get('rol') === 'admin') {
+            // Eliminar la regla 'id_cliente' del conjunto de reglas
+            unset($rules['id_cliente']);
+        }
+
+        $validator = Validator::make($request->all(), $rules, $this->messages);
+
+        if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 400);
             }
             else {
@@ -82,11 +88,17 @@ class UserController extends Controller
                     $imageName = time() . '.' . $image->getClientOriginalExtension();
                     $image->storeAs('/images', $imageName);
                     $user->setAttribute('profile_picture','images/' . $imageName);
-                }    
+                }
 
                     if($request->get('rol') == "admin"){
 
-                        $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456"]) ;
+                        $adminExists = User::where('rol', 'admin')->exists();
+
+                        if ($adminExists) {
+                            return response()->json(['error' => 'Ya existe una cuenta de administrador.'], 401);
+                        }
+
+                        $mockCliente = new Cliente(["alias" => "test", "city" => "Tandil", "dni" => "123456", "domicilio" => "En algun lugar", "numero_de_telefono" => "22345678"]) ;
 
                         $mockCliente->save();
 
@@ -96,12 +108,13 @@ class UserController extends Controller
                     $user->save();
 
                     return response()->json($user);
-            }         
+            }
 
     }
 
     public function show($id){
         $user = User::find($id);
+
 
         if($user)
 
@@ -113,9 +126,9 @@ class UserController extends Controller
     }
 
 
-    
 
-  
+
+
     public function showUserSession( Request $request)
     {
         $user = User::find($request->get("user")->getAttribute("id"));
@@ -140,68 +153,117 @@ class UserController extends Controller
 
     }
 
-   
+
     public function edit(Cuenta $cuenta)
     {
-        
+
+    }
+    private function updateUser(Request $request, $user) {
+
+        $image = $request->file("profile_picture");
+
+
+
+        if ($image) {
+            $previousImage = $user->profile_picture;
+            $this->deleteImage($previousImage);
+            $this->createImagen($user, $image);
+        }
+
+
+        $user->update([
+            "name" => $request->get("name"),
+            "email" => $request->get("email"),
+
+        ]);
+        return response()->json($user);
+
+
+
+
     }
 
-   
-    public function update(Request $request, $id)
 
-    {
-        
-        $user = User::find($id);
 
-        if ($user) {
-            $image = $request->file("profile_picture");
-    
-            
-            $previousImage = $user->profile_picture;
-    
-            if ($image) {
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('/images', $imageName);
-                $user->setAttribute("profile_picture", 'images/' . $imageName);
-    
-               
-                if ($previousImage) {
-                    Storage::disk('public')->delete($previousImage);
-                }
+    public function update(Request $request, $id) {
+
+        if ($this->isAdmin($request)) {
+
+            $user = User::find($id);
+
+            if($user) {
+                $this->updateUser($request, $user);
+
             }
-    
-            $user->update([ "name" => $request->get("name"),
-                            "email" => $request->get("email"),]);
-    
-            return response()->json($user);
-        } else {
+            else
+                return response()->json("No existe el usuario",204);
 
-            return response()->json('No se encuentra el usuario solicitado', 204);
+        } else {
+            $userSession = $request->get('user');
+            if ($userSession->getAttribute('id') == $id) {
+                $this->updateUser($request, $userSession);
+
+            }
+            return
+                response()->json("Esta no es tu cuenta", 401);
+
         }
     }
 
-   
-    public function destroy($id)
-    {
-        $user = User::find($id);
 
-        $imagePath = $user->profile_picture;
+
+
+
+    private function createImagen($user,$image){
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('/images', $imageName);
+        $user->setAttribute("profile_picture", 'images/' . $imageName);
+
+    }
+    private function deleteImage ($imagePath){
 
         if (Storage::disk('public')->exists($imagePath)) {
 
             Storage::disk('public')->delete($imagePath);
         }
-
-        User::destroy($id);
-
-        return response()->json('El usuario ha sido eliminado');
     }
-    
+
+
+
+    public function destroy(Request $request , $id = null)
+    {
+            if($this->isAdmin($request)) {
+
+
+                $user = User::find($id);
+                if($user) {
+                    $imagePath = $user->profile_picture;
+                    $this->deleteImage($imagePath);
+                    if($user->getAttribute('rol') == 'admin')
+                        Cliente::destroy($user->getAttribute('id_cliente'));
+                    User::destroy($id);
+                }
+                else return response()->json("No existe el usuario", 204);
+            }
+            else {
+
+                if($request->get('user')->getAttribute('id') == $id){
+                    $userSession = $request->get('user');
+                    $this->deleteImage($userSession->profile_picture);
+                    $userSession->delete();
+                }
+                else return response()->json("Esta no es tu cuenta", 401);
+
+            }
+
+            return response()->json('El usuario ha sido eliminado');
+    }
+
 
     public function resetPassword(Request $request){
 
        $user = User::all()->where('email', $request->get("user")->getAttribute("email"))->first();
-       
+
 
         if(password_verify( $request->get("currentPassword"),$user->getAttribute("password"))) {
 
@@ -211,7 +273,7 @@ class UserController extends Controller
        }
 
       else
-        
+
         return response()->json("Contraseña actual incorrecta", 401);
     }
 

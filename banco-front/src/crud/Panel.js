@@ -39,8 +39,7 @@ function AdminPanel() {
                 <button className = "btn btn-info ms-4" onClick = {handleCrearUsuario}><FontAwesomeIcon icon = {faPlus} className = "me-2"> </FontAwesomeIcon>Crear Usuario</button>
                 <button className = "btn btn-info ms-4" onClick = {handleAbrirCuenta}><FontAwesomeIcon icon = {faPlus} className = "me-2"> </FontAwesomeIcon>Abrir Cuenta</button>
             </div>
-    </div>
-  );
+        </div>)
         
     
 }
