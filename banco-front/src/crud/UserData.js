@@ -40,27 +40,27 @@ function UserData ({ show, onHide })  {
 
     return (
         <div>
-            <button className="btn btn-primary" onClick={toggleData}>
-                <FontAwesomeIcon icon={faUser} />
+            <button className = "btn btn-primary" onClick = {toggleData}>
+                <FontAwesomeIcon icon = {faUser} />
             </button>
             {showData && (
-                <div className="user-data-container bg-light p-4">
-                    <div className="card" style={{ maxWidth: "300px" }}>
-                        <div className="card-body">
+                <div className = "user-data-container bg-light p-4">
+                    <div className = "card" style = {{ maxWidth: "300px" }}>
+                        <div className = "card-body">
                             <img
-                                src={`${url}${image}`}
-                                alt="Foto de perfil"
-                                className="img-thumbnail"
+                                src = {`${url}${image}`}
+                                alt = "Foto de perfil"
+                                className = "img-thumbnail"
                                 style={{ maxWidth: "100px" }} // Aquí se corrige
                             />
-                            <h5 className="card-title">{userData.name}</h5>
-                            <p className="card-text">Correo electrónico: {userData.email}</p>
-                            <button className="btn btn-primary" onClick={navigateToUserConfig}>
-                                <FontAwesomeIcon icon={faCog} className="me-2"/>
+                            <h5 className = "card-title">{userData.name}</h5>
+                            <p className = "card-text">Correo electrónico: {userData.email}</p>
+                            <button className = "btn btn-primary" onClick = {navigateToUserConfig}>
+                                <FontAwesomeIcon icon = {faCog} className = "me-2"/>
                                 Configuración
                             </button>
                         </div>
-                        <button className="btn btn-danger" onClick={toggleData}>
+                        <button className = "btn btn-danger" onClick = {toggleData}>
                             Cerrar
                         </button>
                     </div>

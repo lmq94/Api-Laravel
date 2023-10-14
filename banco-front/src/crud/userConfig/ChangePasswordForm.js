@@ -31,16 +31,16 @@ function ChangePasswordForm({ setPasswordChangeMessage }) {
     };
   
     return (
-        <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="currentPassword" className="form-label">Contraseña Actual:</label>
+        <form onSubmit = {handleSubmit}>
+        <div className = "mb-3">
+          <label htmlFor = "currentPassword" className = "form-label">Contraseña Actual:</label>
           <input
-            type="password"
-            className="form-control"
-            id="currentPassword"
-            name="currentPassword"
-            value={passwords.currentPassword}
-            onChange={(e) =>
+            type = "password"
+            className = "form-control"
+            id = "currentPassword"
+            name = "currentPassword"
+            value = {passwords.currentPassword}
+            onChange = {(e) =>
               setPasswords({
                 ...passwords,
                 currentPassword: e.target.value,
@@ -49,15 +49,15 @@ function ChangePasswordForm({ setPasswordChangeMessage }) {
             required // Campo requerido
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
+        <div className = "mb-3">
+          <label htmlFor = "newPassword" className = "form-label">Nueva Contraseña:</label>
           <input
-            type="password"
-            className="form-control"
-            id="newPassword"
-            name="newPassword"
-            value={passwords.newPassword}
-            onChange={(e) =>
+            type = "password"
+            className = "form-control"
+            id = "newPassword"
+            name = "newPassword"
+            value = {passwords.newPassword}
+            onChange = {(e) =>
               setPasswords({
                 ...passwords,
                 newPassword: e.target.value,
@@ -66,19 +66,19 @@ function ChangePasswordForm({ setPasswordChangeMessage }) {
             required // Campo requerido
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña:</label>
+        <div className = "mb-3">
+          <label htmlFor = "confirmPassword" className = "form-label">Confirmar Contraseña:</label>
           <input
-            type="password"
-            className="form-control"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            type = "password"
+            className = "form-control"
+            id = "confirmPassword"
+            name = "confirmPassword"
+            value = {confirmPassword}
+            onChange = {(e) => setConfirmPassword(e.target.value)}
             required // Campo requerido
           />
         </div>
-        <button type="submit" className="btn btn-primary" disabled={!passwords.currentPassword || !passwords.newPassword || !confirmPassword}>Cambiar Contraseña</button>
+        <button type = "submit" className  ="btn btn-primary" disabled = {!passwords.currentPassword || !passwords.newPassword || !confirmPassword}>Cambiar Contraseña</button>
       </form>
     );
   }

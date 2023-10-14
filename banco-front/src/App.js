@@ -64,13 +64,13 @@ function App() {
 
         return (
             <Router>
-                <div className="App">
-                    <Header isLoggedIn={isLoggedIn} setIsLoggedInCallback={setIsLoggedIn} userRole={userRole} />
+                <div className = "App">
+                    <Header isLoggedIn = {isLoggedIn} setIsLoggedInCallback = {setIsLoggedIn} userRole = {userRole} />
                     <main className="container">
                         <Routes>
                             <Route
-                                path="/"
-                                element={
+                                path  ="/"
+                                element = {
                                     isLoggedIn ? (
                                         userRole === 'admin' ? (
                                             <AdminPanel />
@@ -78,17 +78,16 @@ function App() {
                                             <UserPanel />
                                         )
                                     ) : (
-                                        <LoginForm setIsLoggedInCallback={setIsLoggedIn} setUserRoleCallback={setUserRole} />
+                                        <LoginForm setIsLoggedInCallback = {setIsLoggedIn} setUserRoleCallback = {setUserRole} />
                                     )
                                 }
                             />
 
                             <Route path = "/register" element = {<UserRegister />} />
-                            <Route path ="/create-account" element = {<CreateCuenta userRole={userRole}  />} />
+                            <Route path = "/create-account" element = {<CreateCuenta userRole = {userRole}  />} />
                             <Route path = "/user-config" element = {<UserConfig />} />
                             <Route path = "/create-cliente" element = {<CreateCliente />} />
-                            {/* Agrega una redirección para rutas no encontradas */}
-                            <Route path="*" element={<Navigate to="/" />} />
+                            <Route path = "*" element = {<Navigate to = "/" />} />
                         </Routes>
                     </main>
                 </div>

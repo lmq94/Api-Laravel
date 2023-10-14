@@ -31,7 +31,7 @@ function TableItems({ ruta, edicion }) {
         UpdateComponent(ruta, updatedData);
 
 
-        // Cierra el formulario de edición
+        
         closeEditForm();
         getComponent(setData, ruta);
     };
@@ -53,28 +53,28 @@ function TableItems({ ruta, edicion }) {
 
     console.log(data);
     return (
-        <div className= "table-responsive">
-            <table className="table table-bordered table-striped">
-                <thead  className="thead-dark">
+        <div className = "table-responsive">
+            <table className = "table table-bordered table-striped">
+                <thead  className = "thead-dark">
                 <tr>
                     {data.length > 0 && Object.keys(data[0]).map((key) => (
                         mostrar.includes(key) &&
-                        <th key={key}>{key}</th>
+                        <th key = {key}>{key}</th>
                     ))}
                     {edicion &&<th> <h3>Moderacion</h3></th>}
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
-                    <tr key={index}>
+                    <tr key = {index}>
                         {Object.keys(item).map((key) => (mostrar.includes(key) &&
-                            <td key={key}>
+                            <td key = {key}>
                                  {item[key]}
                             </td>
                         ))}
 
-                        {edicion && <td> <button onClick={() => openEditForm(item) } className = "btn btn-primary m-1"> <FontAwesomeIcon icon={faEdit} /> Editar</button>
-                                        <button onClick={() => DeleteFila(ruta,item['id'])&&getComponent(setData, ruta)} className = "btn btn-danger m-1"> <FontAwesomeIcon icon={faTrashAlt} ></FontAwesomeIcon> Borrar</button> </td> }
+                        {edicion && <td> <button onClick = {() => openEditForm(item) } className = "btn btn-primary m-1"> <FontAwesomeIcon icon = {faEdit} /> Editar</button>
+                                        <button onClick = {() => DeleteFila(ruta,item['id'])&&getComponent(setData, ruta)} className = "btn btn-danger m-1"> <FontAwesomeIcon icon = {faTrashAlt} ></FontAwesomeIcon> Borrar</button> </td> }
                     </tr>
 
                 ))}
@@ -84,22 +84,22 @@ function TableItems({ ruta, edicion }) {
         {isEditing && (
 
             <div className = "d-flex justify-content-center align-items-center" >
-                <form onSubmit={(e) => { e.preventDefault(); handleUpdate(editingData); }} className = "form-group">
+                <form onSubmit = {(e) => { e.preventDefault(); handleUpdate(editingData); }} className = "form-group">
                     {Object.keys(editingData).map((key) => (mostrar.includes(key) &&
-                        <div key={key} className="form">
-                            <label htmlFor={key} className="form-label ">{key}:</label>
+                        <div key = {key} className = "form">
+                            <label htmlFor = {key} className = "form-label ">{key}:</label>
                             <input
-                                type="text"
+                                type = "text"
                                 id={key}
                                 name={key}
-                                value={editingData[key]}
-                                onChange={(e) => setEditingData({ ...editingData, [key]: e.target.value })}
-                                className="form-control form-control-sm"
+                                value = {editingData[key]}
+                                onChange = {(e) => setEditingData({ ...editingData, [key]: e.target.value })}
+                                className = "form-control form-control-sm"
                             />
                         </div>
                     ))}
-                    <button type="submit" className="btn btn-primary m-4 ">Guardar</button>
-                    <button onClick={closeEditForm} className="btn btn-secondary">Cancelar</button>
+                    <button type = "submit" className = "btn btn-primary m-4 ">Guardar</button>
+                    <button onClick = {closeEditForm} className = "btn btn-secondary">Cancelar</button>
                 </form>
             </div>
         )}
