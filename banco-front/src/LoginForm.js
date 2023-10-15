@@ -49,7 +49,7 @@ function LoginForm({ setIsLoggedInCallback, setUserRoleCallback}) {
                     <div className = "col-md-6">
                         <div className = "card">
                             <div className = "card-header container text-center">Iniciar Sesión</div>
-                            <div className = "card-body">
+                            <div className = "card-body navbar-color">
                                 <form onSubmit = {handleSubmit} className = "container text-center">
                                     <div className = "mb-3">
                                         <label htmlFor = "email" className = "form-label">Email:</label>

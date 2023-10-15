@@ -21,12 +21,12 @@ function EditUserDataForm() {
   const handleImageChange = (e) => {
     const imageFile = e.target.files[0];
 
-    // Leer la imagen seleccionada y crear una URL de datos
+   
     const reader = new FileReader();
     reader.onload = (event) => {
-      setSelectedImage(event.target.result); // Establecer la URL de datos como vista previa
+      setSelectedImage(event.target.result);
     };
-    reader.readAsDataURL(imageFile); // Leer el archivo como una URL de datos
+    reader.readAsDataURL(imageFile); 
 
     setUserData({
       ...userData,

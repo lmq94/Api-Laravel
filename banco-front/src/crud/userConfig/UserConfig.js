@@ -15,10 +15,10 @@ function UserConfig() {
   {/* Contenedor de botones fijado en la parte superior */}
             <div className = "row">
                 <div className = "col-12 col-md-6 mb-2">
-                    <button onClick = {() => setActiveTab('changePassword')} className = "btn btn-primary  w-100 text-nowrap">Contraseña</button>
+                    <button onClick = {() => setActiveTab('changePassword')} className = "btn btn-primary text-nowrap">Contraseña</button>
                 </div>
                     <div className = "col-12 col-md-6 mb-2">
-                <button onClick = {() => setActiveTab('editUserData')} className = "btn btn-primary btn-block w-100 text-nowrap">Editar Datos</button>
+                <button onClick = {() => setActiveTab('editUserData')} className = "btn btn-primary text-nowrap">Editar Datos</button>
                 </div>
             </div>
         </div>

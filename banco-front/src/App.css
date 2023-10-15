@@ -7,61 +7,43 @@ body {
 
 }
 
+main{
 
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  min-height: 600px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 header{
   position: relative;
   
 }
 
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header-cover {
+  position: relative;
+  overflow: hidden;
 }
+
+.header-cover img {
+  width: 100%;
+  height: auto;
+}
+
+.navbar-color{
+  background-color: hsl(195, 53%, 75%);
+}
+
+.card{
+  max-width: 500px;;
+}
+
 
 footer {
   width: 100%;
   background-color: #282c34;
-  color: white;
+  color: black;
   text-align: center;
   padding: 10px 0;
-  position: sticky;
+  position: static;
   bottom: 0;
 
 }
@@ -75,8 +57,9 @@ footer {
 .user-config-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el contenido horizontalmente */
-  justify-content: center; /* Centra el contenido verticalmente */
-  height: 35vh; /* Establece la altura al 100% de la ventana */
+  align-items: center; 
+  justify-content: center; 
+  height: 35vh; 
+  position: fixed;
 }
 

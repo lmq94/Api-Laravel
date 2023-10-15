@@ -46,7 +46,7 @@ function ChangePasswordForm({ setPasswordChangeMessage }) {
                 currentPassword: e.target.value,
               })
             }
-            required // Campo requerido
+            required 
           />
         </div>
         <div className = "mb-3">
@@ -75,7 +75,7 @@ function ChangePasswordForm({ setPasswordChangeMessage }) {
             name = "confirmPassword"
             value = {confirmPassword}
             onChange = {(e) => setConfirmPassword(e.target.value)}
-            required // Campo requerido
+            required 
           />
         </div>
         <button type = "submit" className  ="btn btn-primary" disabled = {!passwords.currentPassword || !passwords.newPassword || !confirmPassword}>Cambiar Contraseña</button>

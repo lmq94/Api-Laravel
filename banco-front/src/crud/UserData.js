@@ -44,9 +44,9 @@ function UserData ({ show, onHide })  {
                 <FontAwesomeIcon icon = {faUser} />
             </button>
             {showData && (
-                <div className = "user-data-container bg-light p-4">
-                    <div className = "card" style = {{ maxWidth: "300px" }}>
-                        <div className = "card-body">
+                <div className = "user-data-container p-4">
+                    <div className = "card" >
+                        <div className = "card-body navbar-color">
                             <img
                                 src = {`${url}${image}`}
                                 alt = "Foto de perfil"
