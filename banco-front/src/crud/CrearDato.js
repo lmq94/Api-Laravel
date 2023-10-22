@@ -306,7 +306,6 @@ function UserRegister() {
 
 
 
-    const [clienteOptions, setClienteOptions] = useState([]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -316,13 +315,8 @@ function UserRegister() {
         });
     };
 
-    const handleClienteChange = (e) => {
-        const selectedCliente = e.target.value;
-        setUserData({
-            ...userData,
-            id_cliente: selectedCliente,
-        });
-    };
+    
+
     const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -364,17 +358,7 @@ function UserRegister() {
         });
     };
 
-    useEffect(() => {
-        axiosInstance.get("clientes")
-            .then((response) => {
-                console.log(response.data);
-                setClienteOptions(response.data);
-
-            })
-            .catch((error) => {
-                console.error('Error al obtener datos:', error);
-            });
-    }, []);
+ 
 
     return (
 
@@ -387,6 +371,7 @@ function UserRegister() {
                         type = "text"
                         id = "name"
                         name = "name"
+                        placeholder = " Ingrese un nombre de usuario"
                         value = {userData.name}
                         onChange = {handleChange}
                         className = "form-control"
@@ -401,6 +386,7 @@ function UserRegister() {
                         type = "email"
                         id = "email"
                         name = "email"
+                        placeholder = "Ingrese un email"
                         value = {userData.email}
                         onChange = {handleChange}
                         className = "form-control"
@@ -415,6 +401,7 @@ function UserRegister() {
                         type = "password"
                         id = "password"
                         name = "password"
+                        placeholder = "Ingrese una contraseña"
                         value = {userData.password}
                         onChange = {handleChange}
                         className = "form-control"
@@ -425,23 +412,18 @@ function UserRegister() {
             <div className = "mb-3 text-center">
                 <label htmlFor = "id_cliente" className="form-label">Cliente:</label>
                 <div className = "col-md-6 mx-auto">
-                    <select
+                    <input
+                        type = "number"
                         id = "id_cliente"
                         name = "id_cliente"
+                        placeholder = "Ingrese el identificador de su cliente"
                         value = {userData.id_cliente}
-                        onChange = {handleClienteChange}
+                        onChange = {handleChange}
                         className = "form-control"
                         required
                     >
-                        <option value = " " disabled>
-                            Seleccione un cliente
-                        </option>
-                        {clienteOptions.map((cliente) => (
-                            <option key = {cliente.id} value = {cliente.id}>
-                                {cliente.alias}
-                            </option>
-                        ))}
-                    </select>
+                    
+                    </input>
                     <p className = "mt-2" >Recordar que un cliente solo puede tener 1 solo usuario</p>
                 </div>
                 <div className = "mb-3 text-center">
