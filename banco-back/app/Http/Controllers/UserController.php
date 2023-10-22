@@ -162,7 +162,7 @@ class UserController extends Controller
 
         $image = $request->file("profile_picture");
 
-
+     
 
         if ($image) {
             $previousImage = $user->profile_picture;
@@ -220,11 +220,12 @@ class UserController extends Controller
         $user->setAttribute("profile_picture", 'images/' . $imageName);
 
     }
-    private function deleteImage ($imagePath){
-
-        if (Storage::disk('public')->exists($imagePath)) {
-
-            Storage::disk('public')->delete($imagePath);
+    
+    private function deleteImage($imagePath) {
+        if ($imagePath !== null && is_string($imagePath) && !empty($imagePath)) {
+            if (Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
         }
     }
 
