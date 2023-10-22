@@ -11,7 +11,7 @@ function UserConfig() {
         {/* Título siempre visible */}
         <h2 className = "mb-4">Configuración de usuario</h2>
       
-        <div className = "sticky-top bg-white mb-4">
+        <div className = "bg-white mb-4">
   {/* Contenedor de botones fijado en la parte superior */}
             <div className = "row">
                 <div className = "col-12 col-md-6 mb-2">
