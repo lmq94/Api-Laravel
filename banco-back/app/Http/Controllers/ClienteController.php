@@ -31,12 +31,17 @@ class ClienteController extends Controller
     ];
 
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         
-            $clientes = Cliente::all();
+            if($this->isAdmin($request)){
 
-            return response()->json($clientes);
+                $clientes = Cliente::all();
+
+                return response()->json($clientes);
+            }
+            
+            else 
+                return response()->json("No tienes permisos para esta peticion", 401);
 
     }
 
