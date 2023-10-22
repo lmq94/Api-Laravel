@@ -298,7 +298,7 @@ function UserRegister() {
         name: "",
         email: "",
         password: "",
-        rol: "normal",
+        rol: "",
         id_cliente: "",
         profile_picture: ""
 
@@ -408,6 +408,25 @@ function UserRegister() {
                         required
                     />
                 </div>
+            </div>
+            <div className = "mb-3 text-center">
+                <label htmlFor = "rol" className = "form-label">Rol:</label>
+                <div className = "col-md-6 mx-auto">
+                    <select
+                        type = "text"
+                        id = "rol"
+                        name = "rol"
+                        placeholder = "Ingrese una contraseña"
+                        value = {userData.rol}
+                        onChange = {handleChange}
+                        className = "form-control"
+                        required
+                    >
+                        <option value = "admin">Admin</option>
+                        <option value = "normal">Normal</option>
+                    </select>
+                </div>
+                <p>Recordar que solo puede existir un usuario admin</p>
             </div>
             <div className = "mb-3 text-center">
                 <label htmlFor = "id_cliente" className="form-label">Cliente:</label>
