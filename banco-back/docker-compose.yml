@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mysql-container:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    container_name: container_bank
+    environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: laravel
