@@ -27,7 +27,7 @@ BACKEND
     El acceso a algunas rutas (que requieren ser administrador) y por ultimo en la request se guardaran los datos del usuario para facilitar algunas funcionalidades tanto del backend como del frontend
 
 
-  Endpoints que requieren logeo:
+  Endpoints que requieren logeo
 
     DireccionBase = 127.0.0.1:8000
 
@@ -63,19 +63,19 @@ BACKEND
 
   RECORDAR respestar las reglas de validacion cuando quiera insertar o actualizar algo
 
-  Poner el marcha el backend:
+  Poner el marcha el backend
 
   Antes que nada descargar las dependencia necesarias: Descargar PHP (si no lo tenes instalado en tu equipo) y luego el la raiz (del backend) con el comando install composer descargar el gestor de paquetes para PHP
 
   Luego con el comando "php artisan serve" para iniciar un servidor local de desarrollo para Laravel
 
 
-Migraciones:
+Migraciones
 
     Una vez se ponga en marcha el contenedor de Docker por primera vez ejecutar las migraciones hacia la base de datos con el comando "php artisan migrate", esto creara las tablas en la base de datos que esta en el contenedor Docker
 
 
-Establecer ruta hacia el storage:
+Establecer ruta hacia el storage
 
     Con el comando php artisan storage:link se creara un vinculo hacia el Storage, esto permitira que las fotos guardadas en este directorio sean publicas para que se pueda acceder a ellas desde la web
 
