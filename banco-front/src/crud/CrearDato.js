@@ -305,17 +305,22 @@ function UserRegister() {
     });
 
 
-
+    const [isAdminSelected, setIsAdminSelected] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === "rol") {
+            // Si cambia la opción de rol, actualiza el estado isAdminSelected
+            setIsAdminSelected(value === "admin");
+        }
         setUserData({
             ...userData,
-            [name]: value,
+            [name]: value
         });
     };
 
-    
+
+
 
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -428,23 +433,27 @@ function UserRegister() {
                 </div>
                 <p>Recordar que solo puede existir un usuario admin</p>
             </div>
-            <div className = "mb-3 text-center">
-                <label htmlFor = "id_cliente" className="form-label">Cliente:</label>
-                <div className = "col-md-6 mx-auto">
-                    <input
-                        type = "number"
-                        id = "id_cliente"
-                        name = "id_cliente"
-                        placeholder = "Ingrese el identificador de su cliente"
-                        value = {userData.id_cliente}
-                        onChange = {handleChange}
-                        className = "form-control"
-                        required
-                    >
-                    
-                    </input>
-                    <p className = "mt-2" >Recordar que un cliente solo puede tener 1 solo usuario</p>
+            {!isAdminSelected && (
+                <div className="mb-3 text-center">
+                    <label htmlFor="id_cliente" className="form-label">
+                        Cliente:
+                    </label>
+                    <div className="col-md-6 mx-auto">
+                        <input
+                            type="number"
+                            id="id_cliente"
+                            name="id_cliente"
+                            placeholder="Ingrese el identificador de su cliente"
+                            value={userData.id_cliente}
+                            onChange={handleChange}
+                            className="form-control"
+                        ></input>
+                        <p className="mt-2">
+                            Recordar que un cliente solo puede tener 1 solo usuario
+                        </p>
+                    </div>
                 </div>
+            )}
                 <div className = "mb-3 text-center">
                     <label htmlFor = "profile_picture" className = "form-label">Imagen:</label>
                     <div className = "col-md-6 mx-auto">
@@ -466,8 +475,6 @@ function UserRegister() {
 
                 )}
 
-
-            </div>
             {successMessage && (
                 <div className = "alert alert-success mt-3">
                     {successMessage}

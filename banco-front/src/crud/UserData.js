@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {axiosInstance, setAuthToken} from "../AxiosConfig";
+import {axiosInstance} from "../AxiosConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCog, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
