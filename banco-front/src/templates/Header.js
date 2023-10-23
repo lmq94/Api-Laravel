@@ -31,27 +31,27 @@ function Header({ isLoggedIn, setIsLoggedInCallback, userRole } ){
                     </button>
                     <div className = "collapse navbar-collapse navbar-custom" id= "navbarNav">
                         <ul className = "navbar-nav">
-                            <li className = "nav-item border m-1 ">
+                            <li className = "nav-item m-1 ">
                                 <Link className = "nav-link" to = "/">Home</Link>
                             </li>
-                            <li className = "nav-item border m-1">
+                            <li className = "nav-item m-1">
                                 <Link className = "nav-link" to = "/">About</Link>
                             </li>
                             {userRole === "normal"&& isLoggedIn ? (
-                                <li className="nav-item border m-1">
+                                <li className="nav-item m-1">
                                     <Link className = "nav-link" to = "/create-account">
                                         Abrir una cuenta
                                     </Link>
                                 </li>
                             ) : null}
                             {isLoggedIn ?(
-                                <li className = "nav-item border m-1">
-                                    <Link className="nav-link bg-danger" to="/" onClick={() => Logout({ setIsLoggedInCallback })}>
+                                <li className = "nav-item m-1">
+                                    <Link className="nav-link " to="/" onClick={() => Logout({ setIsLoggedInCallback })}>
                                         Deslogearse
                                     </Link>
                                 </li>
                             ) : (
-                                <li className = "nav-item border m-1">
+                                <li className = "nav-item m-1">
                                     <Link className = "nav-link bg-custom " to ="/register">Registrarse</Link>
                                 </li>
                             )}
