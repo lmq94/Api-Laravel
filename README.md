@@ -88,7 +88,10 @@ El front hecho con React cuenta con un app.js que es el componente principal don
 Una vez que el usuario se registre podra logearse y dependiendo el rol podra tener mas funcionalidades (el admin puede hacer mas cosas). IMPORTANTE el token de logeo se guardara en la cookie del navegador
 
 
-Solo puedes crear una cuenta admin
+Solo puedes tener una cuenta admin en la app la cual ya se creara al ejecutar las migraciones
+
+ username: admin@gmail.com
+ password: admin
 
 El administrador tendra su panel especial y todos los usuarios tendran un panel personal para modificar sus datos
 

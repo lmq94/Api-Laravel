@@ -298,21 +298,16 @@ function UserRegister() {
         name: "",
         email: "",
         password: "",
-        rol: "",
+        rol: "normal",
         id_cliente: "",
         profile_picture: ""
 
     });
 
 
-    const [isAdminSelected, setIsAdminSelected] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "rol") {
-            // Si cambia la opción de rol, actualiza el estado isAdminSelected
-            setIsAdminSelected(value === "admin");
-        }
         setUserData({
             ...userData,
             [name]: value
@@ -357,7 +352,7 @@ function UserRegister() {
             name: "",
             email: "",
             password: "",
-            rol: "normal",
+            rol: "",
             id_cliente: "",
             profile_picture: ""
         });
@@ -414,26 +409,6 @@ function UserRegister() {
                     />
                 </div>
             </div>
-            <div className = "mb-3 text-center">
-                <label htmlFor = "rol" className = "form-label">Rol:</label>
-                <div className = "col-md-6 mx-auto">
-                    <select
-                        type = "text"
-                        id = "rol"
-                        name = "rol"
-                        placeholder = "Ingrese una contraseña"
-                        value = {userData.rol}
-                        onChange = {handleChange}
-                        className = "form-control"
-                        required
-                    >
-                        <option value = "admin">Admin</option>
-                        <option value = "normal">Normal</option>
-                    </select>
-                </div>
-                <p>Recordar que solo puede existir un usuario admin</p>
-            </div>
-            {!isAdminSelected && (
                 <div className="mb-3 text-center">
                     <label htmlFor="id_cliente" className="form-label">
                         Cliente:
@@ -453,7 +428,6 @@ function UserRegister() {
                         </p>
                     </div>
                 </div>
-            )}
                 <div className = "mb-3 text-center">
                     <label htmlFor = "profile_picture" className = "form-label">Imagen:</label>
                     <div className = "col-md-6 mx-auto">
