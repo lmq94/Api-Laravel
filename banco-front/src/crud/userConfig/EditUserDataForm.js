@@ -81,7 +81,7 @@ function EditUserDataForm() {
           <label htmlFor = "profile_picture" className = "form-label">
             Imagen:
           </label>
-          <div className = "col-md-6 mx-auto">
+          <div className = "col-md-12 mx-auto">
             <input
               type = "file"
               id = "profile_picture"

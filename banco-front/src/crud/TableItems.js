@@ -54,8 +54,8 @@ function TableItems({ ruta, edicion }) {
     console.log(data);
     return (
         <div className = "table-responsive">
-            <table className = "table table-bordered table-striped">
-                <thead  className = "thead-dark">
+            <table className = "table table-bordered table-striped border border-3 border-info">
+                <thead  >
                 <tr>
                     {data.length > 0 && Object.keys(data[0]).map((key) => (
                         mostrar.includes(key) &&
