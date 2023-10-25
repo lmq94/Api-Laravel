@@ -61,7 +61,9 @@ BACKEND
     POST ---> DireccionBase/api/user Inserta una nuevo usuario
 
 
-  RECORDAR respestar las reglas de validacion cuando quiera insertar o actualizar algo
+  RECORDAR respetar las reglas de validacion cuando quiera insertar o actualizar algo
+
+  
 
   Poner el marcha el backend
 
